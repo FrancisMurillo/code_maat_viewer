@@ -28,6 +28,7 @@
         "precommit": "lint-staged"
     },
     "lint-staged": {
+        "*.js": ["eslint --fix", "git add"]
     },
     "jest": {
         "bail": true,

@@ -3,7 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-  render() {
+    render() {
+        var x =1;
     return (
       <div className="App">
         <div className="App-header">
