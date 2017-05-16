@@ -32,12 +32,14 @@
         "eslint": "eslint",
         "jsonlint": "jsonlint"
     },
+    "pre-commit": "lint-staged",
     "lint-staged": {
         "*.js": [
             "eslint --fix",
             "git add"
         ],
-        "*.json": "jsonlint"
+        "*.json": "jsonlint",
+        "verbose": true
     },
     "jest": {
         "bail": true,
