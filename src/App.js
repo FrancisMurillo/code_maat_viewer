@@ -1,14 +1,17 @@
-import React from 'react';
+import React from "react";
 
-import darkBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import AppBar from 'material-ui/AppBar';
+import darkBaseTheme from "material-ui/styles/baseThemes/lightBaseTheme";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import getMuiTheme from "material-ui/styles/getMuiTheme";
 
-const App = () => (
-  <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-    <AppBar title="My AppBar" />
-  </MuiThemeProvider>
+
+import {Header, SideMenu} from "./app"
+
+
+export default () => (
+    <MuiThemeProvider
+      muiTheme={getMuiTheme(darkBaseTheme)}
+      >
+      <Header />
+    </MuiThemeProvider>
 );
-
-export default App;

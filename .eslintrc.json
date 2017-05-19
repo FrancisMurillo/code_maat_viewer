@@ -4,7 +4,7 @@
         "es6": true,
         "jest": true
     },
-    "extends": "eslint:recommended",
+    "extends": ["eslint:all", "plugin:react/all"],
     "parserOptions": {
         "ecmaFeatures": {
             "experimentalObjectRestSpread": true,
@@ -12,12 +12,14 @@
         },
         "sourceType": "module"
     },
+    "globals": {
+        "react": true
+    },
     "plugins": [
         "react"
     ],
     "rules": {
-        "indent": [
-            "error",
+        "indent": ["error",
             4
         ],
         "linebreak-style": [
@@ -36,6 +38,10 @@
             "anonymous": "never",
             "named": "never",
             "asyncArrow": "never"
-        }]
+        }],
+
+        "sort-imports": 0,
+        "no-unused-vars": 1,
+        "object-curly-spacing": 0
     }
 }
