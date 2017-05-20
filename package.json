@@ -1,55 +1,59 @@
 {
-    "name": "code_maat_viewer",
-    "version": "0.1.0",
-    "private": true,
-    "dependencies": {
-        "axios": "^0.16.1",
-        "material-ui": "^0.18.1",
-        "moment": "^2.18.1",
-        "react": "^15.5.4",
-        "react-dom": "^15.5.4",
-        "redux": "^3.6.0",
-        "redux-logger": "^3.0.1",
-        "redux-thunk": "^2.2.0"
+  "name": "code_maat_viewer",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.16.1",
+    "material-ui": "^0.18.1",
+    "moment": "^2.18.1",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.5",
+    "react-router-redux": "^4.0.8",
+    "react-tap-event-plugin": "^2.0.1",
+    "redux": "^3.6.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "^20.0.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "eslint": "^3.19.0",
+    "eslint-plugin-react": "^7.0.1",
+    "jest": "^20.0.1",
+    "jsonlint": "^1.6.2",
+    "lint-staged": "^3.4.1",
+    "pre-commit": "^1.2.2",
+    "react-scripts": "0.9.5",
+    "react-test-renderer": "^15.5.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "jest",
+    "eject": "react-scripts eject",
+    "precommit": "lint-staged",
+    "eslint": "eslint",
+    "jsonlint": "jsonlint",
+    "toolbox": "react-toolbox-themr"
+  },
+  "pre-commit": "lint-staged",
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.json": "jsonlint",
+    "verbose": true
+  },
+  "jest": {
+    "bail": true,
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
     },
-    "devDependencies": {
-        "babel-eslint": "^7.2.3",
-        "babel-jest": "^20.0.1",
-        "babel-preset-es2015": "^6.24.1",
-        "babel-preset-react": "^6.24.1",
-        "eslint": "^3.19.0",
-        "eslint-plugin-react": "^7.0.1",
-        "jest": "^20.0.1",
-        "jsonlint": "^1.6.2",
-        "lint-staged": "^3.4.1",
-        "pre-commit": "^1.2.2",
-        "react-scripts": "0.9.5",
-        "react-test-renderer": "^15.5.4"
-    },
-    "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "jest",
-        "eject": "react-scripts eject",
-        "precommit": "lint-staged",
-        "eslint": "eslint",
-        "jsonlint": "jsonlint"
-    },
-    "pre-commit": "lint-staged",
-    "lint-staged": {
-        "*.js": [
-            "eslint --fix",
-            "git add"
-        ],
-        "*.json": "jsonlint",
-        "verbose": true
-    },
-    "jest": {
-        "bail": true,
-        "moduleNameMapper": {
-            "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-            "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
-        },
-        "verbose": true
-    }
+    "verbose": true
+  }
 }
