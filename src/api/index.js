@@ -1,3 +1,9 @@
-export * from "./WebService";
-export * from "./AnalysisMethod";
-export * from "./Config";
+import WebService from "./WebService";
+import AnalysisMethod from "./AnalysisMethod";
+import Config from "./Config";
+
+export {
+    WebService,
+    AnalysisMethod,
+    Config
+};

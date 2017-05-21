@@ -45,13 +45,14 @@
         "test": "jest",
         "eject": "react-scripts eject",
         "precommit": "lint-staged",
+        "lint-staged": "lint-staged",
         "eslint": "eslint",
         "jsonlint": "jsonlint",
         "translate": "NODE_ENV=production babel ./src & NODE_ENV=production ./node_modules/.bin/babel-node scripts/translator.js"
     },
     "pre-commit": "lint-staged",
     "lint-staged": {
-        "*.js": [
+        "src/*.js": [
             "eslint --fix",
             "git add"
         ],

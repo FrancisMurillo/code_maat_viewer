@@ -48,6 +48,12 @@
                 "asyncArrow": "never"
             }
         ],
+        "no-magic-numbers": [
+            1,
+            {
+                "ignore": [0]
+            }
+        ],
         "padded-blocks": 0,
         "one-var": 0,
         "sort-imports": 0,
@@ -63,10 +69,15 @@
         ],
         "object-curly-spacing": 0,
         "prefer-promise-reject-errors": 0,
+        "prefer-destructuring": 0,
 
         "react/display-name": 0,
         "react/jsx-sort-props": 0,
         "react/sort-prop-types": 0,
+        "react/require-default-props": 0,
+        "react/forbid-prop-types": 0,
+        "react/jsx-no-bind": 0,
+
 
         "react/jsx-filename-extension": 0
     }

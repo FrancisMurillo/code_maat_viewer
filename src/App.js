@@ -2,15 +2,15 @@ import React from "react";
 
 import { applyMiddleware, createStore, combineReducers } from "redux";
 import logger from "redux-logger";
-import thunk from 'redux-thunk';
+import thunk from "redux-thunk";
 
 import { Provider } from "react-redux";
 
-import { addLocaleData, IntlProvider, FormattedNumber, FormattedMessage } from 'react-intl';
-import en from 'react-intl/locale-data/en';
-import ar from 'react-intl/locale-data/ar';
+import { addLocaleData, IntlProvider } from "react-intl";
+import en from "react-intl/locale-data/en";
+import ar from "react-intl/locale-data/ar";
 
-import localeData from './../translations/locales/data.json';
+import localeData from "./../translations/locales/data.json";
 
 
 import injectTapEventPlugin from "react-tap-event-plugin";
@@ -31,7 +31,8 @@ const muiTheme = getMuiTheme({
 });
 
 
-const language = (navigator.languages && navigator.languages[0]) ||
+const language =
+      (navigator.languages && navigator.languages[0]) ||
       navigator.language ||
       navigator.userLanguage;
 
@@ -46,23 +47,8 @@ const messages =
 addLocaleData([...en, ...ar]);
 
 
-
-const initialState = {
-    intl: {
-        defaultLocale: "en",
-        locale: "en",
-        messages: {
-            "en": {
-            },
-            "app.title": "Code Maat Viewer"
-        }
-    }
-};
-
 const store = createStore(
-    combineReducers({
-        "app": AppReducer
-    }),
+    combineReducers({"app": AppReducer}),
     applyMiddleware(
         logger,
         thunk
@@ -71,17 +57,17 @@ const store = createStore(
 
 export default () => (
     <Provider
-      store={store}
-      >
-      <IntlProvider
-        locale={language}
-        messages={messages}
+        store={store}
+    >
+        <IntlProvider
+            locale={language}
+            messages={messages}
         >
-        <MuiThemeProvider
-          muiTheme={muiTheme}
-          >
-          <FrameContainer />
-        </MuiThemeProvider>
-      </IntlProvider>
+            <MuiThemeProvider
+                muiTheme={muiTheme}
+            >
+                <FrameContainer />
+            </MuiThemeProvider>
+        </IntlProvider>
     </Provider>
 );

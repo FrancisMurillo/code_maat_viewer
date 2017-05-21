@@ -1,13 +1,22 @@
-import React, { Component } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 
 import Drawer from "material-ui/Drawer";
 
-
-export default ({ docked, open, onRequestChange }) =>
-    (<Drawer
-        docked={docked || false}
-        open={open || false}
+const SideMenu = ({ docked, open, onRequestChange }) => (
+    <Drawer
+        docked={docked}
+        open={open}
         width={200}
         onRequestChange={onRequestChange}
-    />);
+    />
+);
 
+SideMenu.propTypes = {
+    "docked": PropTypes.bool.isRequired,
+    "open": PropTypes.bool.isRequired,
+    "onRequestChange": PropTypes.func.isRequired
+};
+
+
+export default SideMenu;

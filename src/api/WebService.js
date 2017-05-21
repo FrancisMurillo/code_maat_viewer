@@ -1,7 +1,7 @@
 import axios from "axios";
 import moment from "moment";
 
-import setting from "./Setting";
+import config from "./Config";
 import AnalysisMethod from "./AnalysisMethod";
 
 const isDate =
@@ -21,7 +21,6 @@ class WebService {
     }
 
     getAnalysis({ analysis, startDate, endDate}) {
-
         return new Promise((res, rej) => {
             if (!isAnalysisMethod(analysis)) {
                 rej({
@@ -72,4 +71,4 @@ class WebService {
 }
 
 
-export default new WebService(setting.webRoot);
+export default new WebService(config.webRoot);
