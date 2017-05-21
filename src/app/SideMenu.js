@@ -1,22 +1,40 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { injectIntl, defineMessages } from "react-intl";
 
 import Drawer from "material-ui/Drawer";
+import MenuItem from "material-ui/MenuItem";
 
-const SideMenu = ({ docked, open, onRequestChange }) => (
+const messages = defineMessages({
+    "home": {
+        "id": "menu.home",
+        "description": "Home menu label",
+        "defaultMessage": "Home"
+    },
+    "analysis": {
+        "id": "menu.analysis",
+        "description": "Analysis menu label",
+        "defaultMessage": "Analysis"
+    }
+});
+
+export default injectIntl(({ intl, open, onRequestChange }) => (
     <Drawer
-        docked={docked}
+        docked
         open={open}
         width={200}
         onRequestChange={onRequestChange}
-    />
-);
-
-SideMenu.propTypes = {
-    "docked": PropTypes.bool.isRequired,
-    "open": PropTypes.bool.isRequired,
-    "onRequestChange": PropTypes.func.isRequired
-};
-
-
-export default SideMenu;
+    >
+        <MenuItem
+            primaryText={intl.formatMessage(messages.home)}
+            onTouchTap={() => {
+                debugger;
+            }}
+        />
+        <MenuItem
+            primaryText={intl.formatMessage(messages.analysis)}
+            onTouchTap={() => {
+                debugger;
+            }}
+        />
+    </Drawer>
+));

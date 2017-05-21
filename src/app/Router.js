@@ -1,24 +1,17 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { Router, Route } from "react-router-redux";
+import { Route } from "react-router";
+import { ConnectedRouter } from "react-router-redux";
 
 import RaisedButton from "material-ui/RaisedButton";
 
 
-const ThisRouter = ({ history, routes }) => (
-    <Router
+export default ({ history, routes }) => (
+    <ConnectedRouter
         history={history}
     >
         <Route
             path="/"
             component={() => (<RaisedButton label="Default" />)}
         />
-    </Router>
+    </ConnectedRouter>
 );
-
-ThisRouter.propTypes = {
-    "history": PropTypes.array,
-    "routes": PropTypes.array
-};
-
-export default ThisRouter;

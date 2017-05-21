@@ -1,5 +1,6 @@
 import React from "react";
 
+
 import { applyMiddleware, createStore, combineReducers } from "redux";
 import logger from "redux-logger";
 import thunk from "redux-thunk";
@@ -11,6 +12,10 @@ import en from "react-intl/locale-data/en";
 import ar from "react-intl/locale-data/ar";
 
 import localeData from "./../translations/locales/data.json";
+
+
+import { routerReducer, routerMiddleware } from "react-router-redux";
+import createHistory from "history/createBrowserHistory";
 
 
 import injectTapEventPlugin from "react-tap-event-plugin";
@@ -47,11 +52,17 @@ const messages =
 addLocaleData([...en, ...ar]);
 
 
+const history = createHistory();
+
 const store = createStore(
-    combineReducers({"app": AppReducer}),
+    combineReducers({
+        "app": AppReducer,
+        "router": routerReducer
+    }),
     applyMiddleware(
         logger,
-        thunk
+        thunk,
+        routerMiddleware(history)
     ));
 
 
@@ -66,7 +77,9 @@ export default () => (
             <MuiThemeProvider
                 muiTheme={muiTheme}
             >
-                <FrameContainer />
+                <FrameContainer
+                    history={history}
+                />
             </MuiThemeProvider>
         </IntlProvider>
     </Provider>
