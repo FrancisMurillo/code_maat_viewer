@@ -4,7 +4,11 @@
         "es6": true,
         "jest": true
     },
-    "extends": ["eslint:all", "plugin:react/all"],
+    "extends": [
+        "eslint:all",
+        "plugin:react/all",
+        "plugin:import/errors"
+    ],
     "parserOptions": {
         "ecmaFeatures": {
             "experimentalObjectRestSpread": true,
@@ -16,10 +20,12 @@
         "react": true
     },
     "plugins": [
-        "react"
+        "react",
+        "import"
     ],
     "rules": {
-        "indent": ["error",
+        "indent": [
+            "error",
             4
         ],
         "linebreak-style": [
@@ -34,14 +40,34 @@
             "error",
             "always"
         ],
-        "space-before-function-paren": ["error", {
-            "anonymous": "never",
-            "named": "never",
-            "asyncArrow": "never"
-        }],
-
+        "space-before-function-paren": [
+            "error",
+            {
+                "anonymous": "never",
+                "named": "never",
+                "asyncArrow": "never"
+            }
+        ],
+        "padded-blocks": 0,
+        "one-var": 0,
         "sort-imports": 0,
+        "sort-keys": 0,
         "no-unused-vars": 1,
-        "object-curly-spacing": 0
+        "no-empty-pattern": 1,
+        "no-extra-parens": [
+            0,
+            "all",
+            {
+                "ignoreJSX": "multi-line"
+            }
+        ],
+        "object-curly-spacing": 0,
+        "prefer-promise-reject-errors": 0,
+
+        "react/display-name": 0,
+        "react/jsx-sort-props": 0,
+        "react/sort-prop-types": 0,
+
+        "react/jsx-filename-extension": 0
     }
 }
