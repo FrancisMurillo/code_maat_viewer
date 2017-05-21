@@ -17,24 +17,17 @@ const messages = defineMessages({
     }
 });
 
-export default injectIntl(({ intl, open, onRequestChange }) => (
+export default injectIntl(({ intl, open, items, onRequestChange }) => (
     <Drawer
-        docked
+        docked={false}
         open={open}
         width={200}
         onRequestChange={onRequestChange}
     >
-        <MenuItem
-            primaryText={intl.formatMessage(messages.home)}
-            onTouchTap={() => {
-                debugger;
-            }}
-        />
-        <MenuItem
-            primaryText={intl.formatMessage(messages.analysis)}
-            onTouchTap={() => {
-                debugger;
-            }}
-        />
+        {items.map((item) => (
+            <MenuItem
+                primaryText={item.label}
+                onTouchTap={item.onTouchTap}
+            />))}
     </Drawer>
 ));

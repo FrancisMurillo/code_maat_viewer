@@ -24,7 +24,10 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 
 
-import FrameContainer, { reducer as AppReducer } from "./app";
+import FrameContainer, {
+    reducer as AppReducer,
+    Home
+} from "./app";
 
 
 // HACK: Needed for material-ui
@@ -47,6 +50,18 @@ const messages =
       localeData[languageWithoutRegionCode] ||
       localeData[language] ||
       localeData.en;
+
+
+const routes = [
+];
+
+const items = [
+    {
+        "label": "Home",
+        "onTouchTap": () => {
+        }
+    }
+];
 
 
 addLocaleData([...en, ...ar]);
@@ -79,6 +94,9 @@ export default () => (
             >
                 <FrameContainer
                     history={history}
+                    routes={routes}
+                    items={items}
+                    root={Home}
                 />
             </MuiThemeProvider>
         </IntlProvider>
