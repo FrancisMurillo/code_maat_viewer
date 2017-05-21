@@ -16,5 +16,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-/translations/messages/**.json
-/translations/locales/**.json
+!/translations/locales/
+!/translations/messages/
+/translations/*/*
+
+/pub
