@@ -1,5 +1,1 @@
-export const toggleSideMenu = () => {
-    return {
-        type: 'TOGGLE_SIDE_MENU'
-    }
-};
+export const toggleSideMenu = () => ({"type": "TOGGLE_SIDE_MENU"});

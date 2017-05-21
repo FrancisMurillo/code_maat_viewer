@@ -1,42 +1,87 @@
 import React from "react";
-import { applyMiddleware, createStore, combineReducers } from 'redux'
-import logger from 'redux-logger';
 
-import { Provider, connect } from 'react-redux';
+import { applyMiddleware, createStore, combineReducers } from "redux";
+import logger from "redux-logger";
+import thunk from 'redux-thunk';
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import { Provider } from "react-redux";
 
-import darkBaseTheme from "material-ui/styles/baseThemes/lightBaseTheme";
+import { addLocaleData, IntlProvider, FormattedNumber, FormattedMessage } from 'react-intl';
+import en from 'react-intl/locale-data/en';
+import ar from 'react-intl/locale-data/ar';
+
+import localeData from './../translations/locales/data.json';
+
+
+import injectTapEventPlugin from "react-tap-event-plugin";
+
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 
-import AppContainer, { reducer as AppReducer } from "./app"
+
+import FrameContainer, { reducer as AppReducer } from "./app";
+
 
 // HACK: Needed for material-ui
 injectTapEventPlugin();
 
-
 const muiTheme = getMuiTheme({
-    fontFamily: 'Noto sans, Roboto, sans-serif',
-    contentFontFamily: 'Noto sans, Roboto, sans-serif'
+    "fontFamily": "Noto sans, Roboto, sans-serif",
+    "contentFontFamily": "Noto sans, Roboto, sans-serif"
 });
 
 
+const language = (navigator.languages && navigator.languages[0]) ||
+      navigator.language ||
+      navigator.userLanguage;
+
+const languageWithoutRegionCode = language.toLowerCase().split(/[_-]+/)[0];
+
+const messages =
+      localeData[languageWithoutRegionCode] ||
+      localeData[language] ||
+      localeData.en;
+
+
+addLocaleData([...en, ...ar]);
+
+
+
+const initialState = {
+    intl: {
+        defaultLocale: "en",
+        locale: "en",
+        messages: {
+            "en": {
+            },
+            "app.title": "Code Maat Viewer"
+        }
+    }
+};
+
 const store = createStore(
     combineReducers({
-        app: AppReducer
+        "app": AppReducer
     }),
-    applyMiddleware(logger));
+    applyMiddleware(
+        logger,
+        thunk
+    ));
 
 
-export default ({}) => (
+export default () => (
     <Provider
       store={store}
       >
-      <MuiThemeProvider
-        muiTheme={muiTheme}
+      <IntlProvider
+        locale={language}
+        messages={messages}
         >
-        <AppContainer/>
-      </MuiThemeProvider>
+        <MuiThemeProvider
+          muiTheme={muiTheme}
+          >
+          <FrameContainer />
+        </MuiThemeProvider>
+      </IntlProvider>
     </Provider>
 );

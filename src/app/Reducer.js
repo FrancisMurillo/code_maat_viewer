@@ -1,16 +1,14 @@
-import React from 'react';
-
-
 const initialState = {
-    open: false
-}
+    "open": false,
+    "docked": false
+};
 
 export default (state = initialState, action) => {
     switch (action.type) {
-    case 'TOGGLE_SIDE_MENU':
+    case "TOGGLE_SIDE_MENU":
         return {
             ...state,
-            open: !state.open
+            "open": !state.open
         };
     default:
         return state;

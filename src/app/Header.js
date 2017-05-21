@@ -1,13 +1,26 @@
-import React, {Component} from 'react';
+import React from "react";
+import PropTypes from "prop-types";
+import { injectIntl, defineMessages } from 'react-intl';
 
-import AppBar from 'material-ui/AppBar';
+import MuiAppBar from "material-ui/AppBar";
 
+const messages = defineMessages({
+    title: {
+        id: "app.title",
+        description: "Application title",
+        defaultMessage: "Code Maat Viewer"
+    }
+})
 
-export default ({onTouchTap}) => (
-    <AppBar
-      title="My AppBar"
+const AppBar = injectIntl (({onTouchTap, intl}) => (
+    <MuiAppBar
+      title={intl.formatMessage(messages.title)}
       showMenuIconButton={true}
       iconClassNameRight="muidocs-icon-navigation-expand-more"
       onLeftIconButtonTouchTap={onTouchTap}
       />
-);
+));
+
+AppBar.propTypes = {"onTouchTap": PropTypes.func.isRequired};
+
+export default AppBar;
