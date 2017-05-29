@@ -1,6 +1,5 @@
 import React from "react";
 
-
 import { applyMiddleware, createStore, combineReducers } from "redux";
 import logger from "redux-logger";
 import thunk from "redux-thunk";
@@ -52,18 +51,6 @@ const messages =
       localeData.en;
 
 
-const routes = [
-];
-
-const items = [
-    {
-        "label": "Home",
-        "onTouchTap": () => {
-        }
-    }
-];
-
-
 addLocaleData([...en, ...ar]);
 
 
@@ -94,8 +81,6 @@ export default () => (
             >
                 <FrameContainer
                     history={history}
-                    routes={routes}
-                    items={items}
                     root={Home}
                 />
             </MuiThemeProvider>

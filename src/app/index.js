@@ -13,7 +13,6 @@ import Reducer from "./Reducer";
 export const Frame = ({
     history,
     open,
-    routes,
     items,
     root,
     onRequestChange,
