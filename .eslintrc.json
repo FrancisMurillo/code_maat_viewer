@@ -77,6 +77,7 @@
 
         "react/display-name": 0,
         "react/jsx-sort-props": 0,
+        "react/jsx-indent": 1,
         "react/jsx-indent-props": 1,
         "react/sort-prop-types": 0,
         "react/require-default-props": 0,
