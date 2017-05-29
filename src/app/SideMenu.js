@@ -1,7 +1,8 @@
 import React from "react";
 import { injectIntl, defineMessages } from "react-intl";
 
-import { Link } from 'react-router';
+import { routeActions } from 'react-router-redux';
+import { connect } from 'react-redux';
 
 import { routes } from './Router';
 
@@ -32,10 +33,10 @@ const messages = defineMessages({
         "defaultMessage": "Code Maat"
     },
 
-    "home": {
-        "id": "menu.home",
-        "description": "Home menu label",
-        "defaultMessage": "Home"
+    "dashboard": {
+        "id": "menu.dashboard",
+        "description": "Dashboard menu label",
+        "defaultMessage": "Dashboard"
     },
     "analysis": {
         "id": "menu.analysis",
@@ -101,21 +102,74 @@ const messages = defineMessages({
 });
 
 
-export default injectIntl(({ intl, open, items, onRequestChange }) => (
+const codeMaatRouteKeys = [
+    {
+        "key": "dashboard",
+        "icon": DashboardIcon
+    }
+];
+
+const analysisRouteKeys = [
+    {
+        "key": "summary",
+        "icon": SummaryIcon
+    },
+    {
+        "key": "age",
+        "icon": AgeIcon
+    },
+    {
+        "key": "absoluteChurn",
+        "icon": AbsoluteChurnIcon
+    },
+    {
+        "key": "authorChurn",
+        "icon": AuthorChurnIcon
+    },
+    {
+        "key": "entityChurn",
+        "icon": EntityChurnIcon
+    },
+    {
+        "key": "entityOwnership",
+        "icon": EntityOwnershipIcon
+    },
+    {
+        "key": "entityEffort",
+        "icon": EntityEffortIcon
+    }
+];
+
+const preferenceRouteKeys = [
+    {
+        "key": "setting",
+        "icon": SettingIcon
+    }
+];
+
+
+
+export default  injectIntl(({ intl, open, onRequestChange }) => (
     <Drawer
         docked={false}
         open={open}
         width={400}
         onRequestChange={onRequestChange}
-    >
+      >
         <List>
             <List>
-                <Subheader>{intl.formatMessage(messages.codeMaat)}</Subheader>
-                <ListItem
-                  primaryText={intl.formatMessage(messages.home)}
-                  leftIcon={<DashboardIcon />}
-                  containerElement={(props) => (<Link to="/" {...props} />)}
-                />
+              <Subheader>{intl.formatMessage(messages.codeMaat)}</Subheader>
+              {codeMaatRouteKeys.map(({key, icon}) => {
+                  const route = routes[key],
+                        label = intl.formatMessage(messages [key]);
+
+                  return (
+                      <ListItem
+                        primaryText={label}
+                        leftIcon={(<icon />)}
+                          />
+                  );
+              })}
             </List>
             <Divider />
             <List>

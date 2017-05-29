@@ -30,7 +30,6 @@ export const Frame = ({
             />
             <Router
                 history={history}
-                routes={routes}
                 root={root}
             />
         </div>
