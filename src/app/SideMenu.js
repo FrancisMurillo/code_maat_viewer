@@ -1,10 +1,9 @@
 import React from "react";
 import { injectIntl, defineMessages } from "react-intl";
 
-import { routeActions } from 'react-router-redux';
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-import { routes } from './Router';
+import { push } from "react-router-redux";
 
 import {List, ListItem} from "material-ui/List";
 import Drawer from "material-ui/Drawer";
@@ -14,6 +13,7 @@ import Subheader from "material-ui/Subheader";
 import DashboardIcon from "material-ui/svg-icons/action/dashboard";
 
 import SummaryIcon from "material-ui/svg-icons/action/track-changes";
+import RevisionIcon from "material-ui/svg-icons/editor/linear-scale";
 import CouplingIcon from "material-ui/svg-icons/image/leak-remove";
 import AgeIcon from "material-ui/svg-icons/av/av-timer";
 import AbsoluteChurnIcon from "material-ui/svg-icons/editor/show-chart";
@@ -25,6 +25,8 @@ import EntityEffortIcon from "material-ui/svg-icons/action/donut-small";
 import SettingIcon from "material-ui/svg-icons/action/settings";
 import ExitIcon from "material-ui/svg-icons/action/exit-to-app";
 
+
+import { routes } from "./Router";
 
 const messages = defineMessages({
     "codeMaat": {
@@ -47,6 +49,11 @@ const messages = defineMessages({
         "id": "menu.summary",
         "description": "Summary menu label",
         "defaultMessage": "Summary"
+    },
+    "revision": {
+        "id": "menu.revision",
+        "description": "Revision menu label",
+        "defaultMessage": "Revisions"
     },
     "coupling": {
         "id": "menu.coupling",
@@ -115,6 +122,14 @@ const analysisRouteKeys = [
         "icon": SummaryIcon
     },
     {
+        "key": "revision",
+        "icon": RevisionIcon
+    },
+    {
+        "key": "coupling",
+        "icon": CouplingIcon
+    },
+    {
         "key": "age",
         "icon": AgeIcon
     },
@@ -148,79 +163,64 @@ const preferenceRouteKeys = [
 ];
 
 
+export const Router = injectIntl(
+    ({ intl, open, onRequestChange, onChangeRoute }) => {
+        const renderRouteKeys = (routeKeys) => routeKeys.map(({key, icon}) => {
+            const route = routes.find((thisRoute) => thisRoute.key === key),
+                label = intl.formatMessage(messages[key]);
 
-export default  injectIntl(({ intl, open, onRequestChange }) => (
-    <Drawer
-        docked={false}
-        open={open}
-        width={400}
-        onRequestChange={onRequestChange}
-      >
-        <List>
-            <List>
-              <Subheader>{intl.formatMessage(messages.codeMaat)}</Subheader>
-              {codeMaatRouteKeys.map(({key, icon}) => {
-                  const route = routes[key],
-                        label = intl.formatMessage(messages [key]);
+            const { path } = route;
 
-                  return (
-                      <ListItem
-                        primaryText={label}
-                        leftIcon={(<icon />)}
-                          />
-                  );
-              })}
-            </List>
-            <Divider />
-            <List>
-                <Subheader>{intl.formatMessage(messages.analysis)}</Subheader>
+            return (
                 <ListItem
-                    primaryText={intl.formatMessage(messages.summary)}
-                    leftIcon={<SummaryIcon />}
+                    key={key}
+                    primaryText={label}
+                    leftIcon={React.createElement(icon)}
+                    onClick={() => {
+                        onChangeRoute(path);
+                    }}
                 />
-                <ListItem
-                    primaryText={intl.formatMessage(messages.coupling)}
-                    leftIcon={<CouplingIcon />}
-                />
-                <ListItem
-                    primaryText={intl.formatMessage(messages.age)}
-                    leftIcon={<AgeIcon />}
-                />
-                <ListItem
-                    primaryText={intl.formatMessage(messages.absoluteChurn)}
-                    leftIcon={<AbsoluteChurnIcon />}
-                />
-                <ListItem
-                    primaryText={intl.formatMessage(messages.authorChurn)}
-                    leftIcon={<AuthorChurnIcon />}
-                />
-                <ListItem
-                    primaryText={intl.formatMessage(messages.entityChurn)}
-                    leftIcon={<EntityChurnIcon />}
-                />
-                <ListItem
-                    primaryText={intl.formatMessage(messages.entityOwnership)}
-                    leftIcon={<EntityOwnershipIcon />}
-                />
-                <ListItem
-                    primaryText={intl.formatMessage(messages.entityEffort)}
-                    leftIcon={<EntityEffortIcon />}
-                />
-            </List>
-            <Divider />
-            <List>
-                <Subheader>
-                  {intl.formatMessage(messages.preferences)}
-                </Subheader>
-                <ListItem
-                    primaryText={intl.formatMessage(messages.setting)}
-                    leftIcon={<SettingIcon />}
-                />
-                <ListItem
-                    primaryText={intl.formatMessage(messages.exit)}
-                    leftIcon={<ExitIcon />}
-                />
-            </List>
-        </List>
-    </Drawer>
-));
+            );
+        });
+
+        return (
+            <Drawer
+                docked={false}
+                open={open}
+                width={400}
+                onRequestChange={onRequestChange}
+            >
+                <List>
+                    <List>
+                        <Subheader>
+                            {intl.formatMessage(messages.codeMaat)}
+                        </Subheader>
+                        {renderRouteKeys(codeMaatRouteKeys)}
+                    </List>
+                    <Divider />
+                    <List>
+                        <Subheader>
+                            {intl.formatMessage(messages.analysis)}
+                        </Subheader>
+                        {renderRouteKeys(analysisRouteKeys)}
+                        <Divider />
+                        <List>
+                            <Subheader>
+                                {intl.formatMessage(messages.preferences)}
+                            </Subheader>
+                            {renderRouteKeys(preferenceRouteKeys)}
+                        </List>
+                    </List>
+                </List>
+            </Drawer>
+        );
+    });
+
+export default connect(
+    null,
+    (dispatch) => ({
+        onChangeRoute(path) {
+            dispatch(push(path));
+        }
+    })
+)(Router);

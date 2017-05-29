@@ -1,32 +1,36 @@
 import React from "react";
-import { div } from 'react-dom';
+import { div } from "react-dom";
 import { Route } from "react-router";
 import { ConnectedRouter } from "react-router-redux";
 
 
 export const routes = [
     {
-        "key": "home",
+        "key": "dashboard",
         "path": "/",
         "exact": true,
-        "component": () =>  (
-            <div>Meow</div>
-        )
+        "component": null
     },
     {
         "key": "notFound",
         "path": "",
-        "component": () =>  (
-            <div>Roar</div>
-        )
+        "component": null
     },
 
     {
+        "key": "summary",
+        "path": "/analysis/summary",
+        "component": null
+    },
+    {
+        "key": "revision",
+        "path": "/analysis/revision",
+        "component": null
+    },
+    {
         "key": "coupling",
         "path": "/analysis/coupling",
-        "component":  () =>  (
-            <div>Puspin</div>
-        )
+        "component": null
     },
     {
         "key": "age",
@@ -68,15 +72,15 @@ export const routes = [
 
 export default ({ history }) => (
     <ConnectedRouter
-      history={history}
-      >
-      <div>
-        {routes.map((route) => (
-            <Route
-              key={route.key}
-              {...route}
-              />
+        history={history}
+    >
+        <div>
+            {routes.map((route) => (
+                <Route
+                    key={route.key}
+                    {...route}
+                />
         ))}
-    </div>
-        </ConnectedRouter>
+        </div>
+    </ConnectedRouter>
 );

@@ -72,6 +72,7 @@
         "object-curly-spacing": 0,
         "prefer-promise-reject-errors": 0,
         "prefer-destructuring": 0,
+        "sort-vars": 0,
         "quotes": 1,
         "quote-props": 1,
 
