@@ -6,17 +6,13 @@ r(equire 'prodigy)
 
   ;; Tags
   (prodigy-define-tag
-    :name 'npm-runner
-    :command "npm")
-
-  (prodigy-define-tag
     :name 'code-maat-viewer
     :cwd (projectile-project-root))
 
 
   (fn/prodigy-define-service
    :name fbn/code-maat-viewer-service-name
-   :tags '(npm npm-runner code-maat-viewer)
+   :tags '(npm code-maat-viewer)
    :port 3000
    :args `("run" "start")
 
