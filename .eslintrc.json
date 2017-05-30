@@ -54,6 +54,7 @@
                 "ignore": [0]
             }
         ],
+        "capitalized-comments": 0,
         "padded-blocks": 0,
         "one-var": 0,
         "sort-imports": 0,
