@@ -1,4 +1,4 @@
-(require 'prodigy)
+r(equire 'prodigy)
 
 (with-eval-after-load 'prodigy
   (defconst fbn/code-maat-viewer-service-name "code-maat-viewer-npm-runner"
@@ -17,6 +17,7 @@
   (fn/prodigy-define-service
    :name fbn/code-maat-viewer-service-name
    :tags '(npm npm-runner code-maat-viewer)
+   :port 3000
    :args `("run" "start")
 
    ;; Custom Binding
