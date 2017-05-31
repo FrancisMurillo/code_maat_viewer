@@ -1,24 +1,24 @@
-r(equire 'prodigy)
+(require 'prodigy)
 
 (with-eval-after-load 'prodigy
-  (defconst fbn/code-maat-viewer-service-name "code-maat-viewer-npm-runner"
-    "The dev blog service name.")
+  (defconst fbn/code-maat-viewer-frontend-service-name "code-maat-viewer-frontend"
+    "The code-maat-viewer frontend service name.")
 
   ;; Tags
   (prodigy-define-tag
-    :name 'code-maat-viewer
+    :name 'code-maat-viewer-frontend
     :cwd (projectile-project-root))
 
 
   (fn/prodigy-define-service
-   :name fbn/code-maat-viewer-service-name
-   :tags '(npm code-maat-viewer)
+   :name fbn/code-maat-viewer-frontend-service-name
+   :tags '(code-maat-viewer-frontend npm)
    :port 3000
    :args `("run" "start")
 
    ;; Custom Binding
-   :bind-command-name "code-maat-viewer"
+   :bind-command-name "code-maat-viewer-frontend"
    :bind-map fn/prodigy-map
-   :bind (kbd "c c"))
+   :bind (kbd "c f"))
 
-  (prodigy-start-service (prodigy-find-service fbn/code-maat-viewer-service-name)))
+  (prodigy-start-service (prodigy-find-service fbn/code-maat-viewer-frontend-service-name)))

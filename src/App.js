@@ -30,9 +30,9 @@ import FrameContainer, {
     Home
 } from "./app";
 
-import {
-    reducer as SummaryReducer
-} from "./summary";
+// import {
+//     reducer as SummaryReducer
+// } from "./summary";
 
 
 // HACK: Needed for material-ui
@@ -65,7 +65,7 @@ const history = createHistory();
 const store = createStore(
     combineReducers({
         "app": AppReducer,
-        "summary": SummaryReducer,
+        // "summary": SummaryReducer,
         "router": routerReducer
     }),
     applyMiddleware(
