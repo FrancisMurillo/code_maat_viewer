@@ -22,7 +22,7 @@ export const routes = [
     {
         "key": "summary",
         "path": "/analysis/summary",
-        "component": null //Summary
+        "component": null // Summary
     },
     {
         "key": "revision",
