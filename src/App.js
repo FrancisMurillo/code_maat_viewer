@@ -22,7 +22,7 @@ import injectTapEventPlugin from "react-tap-event-plugin";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 
-import Router from './Router';
+import Router from "./Router";
 
 
 import FrameContainer, {
@@ -32,7 +32,7 @@ import FrameContainer, {
 
 import {
     reducer as SummaryReducer
-} from './summary';
+} from "./summary";
 
 
 // HACK: Needed for material-ui
@@ -77,8 +77,8 @@ const store = createStore(
 
 const AppRouting = () => (
     <Router
-      history={history}
-      />
+        history={history}
+    />
 );
 
 
@@ -94,7 +94,7 @@ export default () => (
                 muiTheme={muiTheme}
             >
                 <FrameContainer
-                  router={AppRouting}
+                    router={AppRouting}
                 />
             </MuiThemeProvider>
         </IntlProvider>

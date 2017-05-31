@@ -23,8 +23,8 @@ export const Frame = ({
             />
             <Header
                 onTouchTap={onTouchTap}
-              />
-            {createElement (router)}
+            />
+            {createElement(router)}
         </div>
     );
 
