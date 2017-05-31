@@ -3,8 +3,8 @@ import { div } from "react-dom";
 import { Route } from "react-router";
 import { ConnectedRouter } from "react-router-redux";
 
-// import Summary from "./summary";
-import Revision from ".revision";
+import Summary from "./summary";
+// import Revision from ".revision";
 
 export const routes = [
     {
@@ -22,12 +22,12 @@ export const routes = [
     {
         "key": "summary",
         "path": "/analysis/summary",
-        "component": null // Summary
+        "component": Summary
     },
     {
         "key": "revision",
         "path": "/analysis/revision",
-        "component": Revision
+        "component": null // Revision
     },
     {
         "key": "coupling",

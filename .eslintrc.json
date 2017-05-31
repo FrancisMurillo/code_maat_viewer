@@ -55,6 +55,8 @@
             }
         ],
         "capitalized-comments": 0,
+        "no-inline-comments": 0,
+        "line-comment-position": 0,
         "padded-blocks": 0,
         "one-var": 0,
         "sort-imports": 0,

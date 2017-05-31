@@ -9,10 +9,9 @@
     :name 'code-maat-viewer-frontend
     :cwd (projectile-project-root))
 
-
   (fn/prodigy-define-service
    :name fbn/code-maat-viewer-frontend-service-name
-   :tags '(code-maat-viewer-frontend npm)
+   :tags '(npm code-maat-viewer-frontend)
    :port 3000
    :args `("run" "start")
 
