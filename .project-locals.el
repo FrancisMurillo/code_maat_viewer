@@ -1,4 +1,4 @@
-(when (file-regular-p (buffer-file-name))
+(when (file-regular-p (or (buffer-file-name) ""))
   (let ((file-extension (file-name-extension (buffer-file-name))))
     (pcase file-extension
       ("js"
