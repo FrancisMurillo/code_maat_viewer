@@ -22,11 +22,17 @@ import injectTapEventPlugin from "react-tap-event-plugin";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 
+import Router from './Router';
+
 
 import FrameContainer, {
     reducer as AppReducer,
     Home
 } from "./app";
+
+import {
+    reducer as SummaryReducer
+} from './summary';
 
 
 // HACK: Needed for material-ui
@@ -59,6 +65,7 @@ const history = createHistory();
 const store = createStore(
     combineReducers({
         "app": AppReducer,
+        "summary": SummaryReducer,
         "router": routerReducer
     }),
     applyMiddleware(
@@ -66,6 +73,13 @@ const store = createStore(
         thunk,
         routerMiddleware(history)
     ));
+
+
+const AppRouting = () => (
+    <Router
+      history={history}
+      />
+);
 
 
 export default () => (
@@ -80,8 +94,7 @@ export default () => (
                 muiTheme={muiTheme}
             >
                 <FrameContainer
-                    history={history}
-                    root={Home}
+                  router={AppRouting}
                 />
             </MuiThemeProvider>
         </IntlProvider>

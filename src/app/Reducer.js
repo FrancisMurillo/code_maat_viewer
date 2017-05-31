@@ -1,8 +1,14 @@
-const initialState = {"open": false};
+import * as Action from "./Action";
+
+const initialState = {
+    "open": false,
+    "startDate": null,
+    "endDate": null
+};
 
 export default (state = initialState, action) => {
     switch (action.type) {
-    case "TOGGLE_SIDE_MENU":
+    case Action.TOGGLE_SIDE_MENU:
         return {
             ...state,
             "open": !state.open

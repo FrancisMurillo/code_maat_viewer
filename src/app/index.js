@@ -1,20 +1,17 @@
-import React from "react";
+import React, { createElement } from "react";
 import { connect } from "react-redux";
 import { div } from "react-dom";
 
 import Header from "./Header";
 import SideMenu from "./SideMenu";
-import Router from "./Router";
 import ThisHome from "./Home";
 
 import { toggleSideMenu } from "./Action";
 import Reducer from "./Reducer";
 
 export const Frame = ({
-    history,
     open,
-    items,
-    root,
+    router,
     onRequestChange,
     onTouchTap
 }) =>
@@ -22,16 +19,12 @@ export const Frame = ({
         <div>
             <SideMenu
                 onRequestChange={onRequestChange}
-                items={items}
                 open={open}
             />
             <Header
                 onTouchTap={onTouchTap}
-            />
-            <Router
-                history={history}
-                root={root}
-            />
+              />
+            {createElement (router)}
         </div>
     );
 
@@ -43,14 +36,10 @@ export default connect(
     (state) => ({...state.app}),
     (dispatch) => ({
         onTouchTap() {
-
             dispatch(toggleSideMenu());
-
         },
         onRequestChange() {
-
             dispatch(toggleSideMenu());
-
         }
     })
 )(Frame);

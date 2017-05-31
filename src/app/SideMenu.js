@@ -26,7 +26,7 @@ import SettingIcon from "material-ui/svg-icons/action/settings";
 import ExitIcon from "material-ui/svg-icons/action/exit-to-app";
 
 
-import { routes } from "./Router";
+import { routes } from "../Router";
 
 const messages = defineMessages({
     "codeMaat": {
