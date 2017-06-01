@@ -3,6 +3,7 @@ import React from "react";
 import { applyMiddleware, createStore, combineReducers } from "redux";
 import logger from "redux-logger";
 import thunk from "redux-thunk";
+import promiseMiddleware from "redux-promise";
 
 import { Provider } from "react-redux";
 
@@ -30,9 +31,10 @@ import FrameContainer, {
     Home
 } from "./app";
 
-// import {
-//     reducer as SummaryReducer
-// } from "./summary";
+
+import SummaryContainer, {
+    reducer as SummaryReducer
+} from "./summary";
 
 
 // HACK: Needed for material-ui
@@ -65,12 +67,13 @@ const history = createHistory();
 const store = createStore(
     combineReducers({
         "app": AppReducer,
-        // "summary": SummaryReducer,
+        "summary": SummaryReducer,
         "router": routerReducer
     }),
     applyMiddleware(
         logger,
         thunk,
+        promiseMiddleware,
         routerMiddleware(history)
     ));
 

@@ -7,7 +7,7 @@ import AnalysisMethod from "./AnalysisMethod";
 const isDate =
       (value) => Object.prototype.toString.call(value) === "[object Date]";
 
-const isAnalysisMethod = (value) => Boolean(AnalysisMethod[value]);
+const isAnalysisMethod = (value) => AnalysisMethod[value];
 
 const serializeDate = (date) => moment(date).format("YYYY-MM-DD");
 
@@ -22,14 +22,15 @@ class WebService {
 
     getAnalysis({ analysis, startDate, endDate}) {
         return new Promise((res, rej) => {
-            if (!isAnalysisMethod(analysis)) {
-                rej({
-                    "type": "validation",
-                    "field": "analysis",
-                    "value": analysis,
-                    "message": "Invalid analysis type"
-                });
-            }
+            debugger;
+            // if (!isAnalysisMethod(analysis)) {
+            //     rej({
+            //         "type": "validation",
+            //         "field": "analysis",
+            //         "value": analysis,
+            //         "message": "Invalid analysis type"
+            //     });
+            // }
 
             if (!isDate(startDate)) {
                 rej({
@@ -59,12 +60,14 @@ class WebService {
                 });
             }
 
-            return this.webService.post(
+            return this.webService.get(
                 "/api/code-maat",
                 {
-                    "analysis": AnalysisMethod[analysis],
-                    "start-date": serializeDate(startDate),
-                    "end-date": serializeDate(endDate)
+                    "params": {
+                        analysis,
+                        "start-date": serializeDate(startDate),
+                        "end-date": serializeDate(endDate)
+                    }
                 });
         });
     }

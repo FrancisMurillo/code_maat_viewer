@@ -1,10 +1,11 @@
 export default {
-    [Symbol("SUMMARY")]: "summary",
-    [Symbol("COUPLING")]: "coupling",
-    [Symbol("AGE")]: "age",
-    [Symbol("ABS_CHURN")]: "abs-churn",
-    [Symbol("AUTHOR_CHURN")]: "author_churn",
-    [Symbol("ENTITY_CHURN")]: "entity_churn",
-    [Symbol("ENTITY_OWNERSHIP")]: "entity-ownership",
-    [Symbol("ENTITY_EFFORT")]: "entity-effort"
+    "SUMMARY": "summary",
+    "REVISION": "revision",
+    "COUPLING": "coupling",
+    "AGE": "age",
+    "ABS_CHURN": "abs-churn",
+    "AUTHOR_CHURN": "author_churn",
+    "ENTITY_CHURN": "entity_churn",
+    "ENTITY_OWNERSHIP": "entity-ownership",
+    "ENTITY_EFFORT": "entity-effort"
 };

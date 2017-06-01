@@ -1,3 +1,6 @@
-const initialState = {"data": null};
+const initialState = {
+    "data": null,
+    "fetching": false
+};
 
-export default (state = initialState, action) => null;
+export default (state = initialState, action) => state;
