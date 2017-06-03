@@ -27,14 +27,17 @@ import Router from "./Router";
 
 
 import FrameContainer, {
-    reducer as AppReducer,
-    Home
+    reducer as AppReducer
 } from "./app";
 
 
-import SummaryContainer, {
+import {
     reducer as SummaryReducer
 } from "./summary";
+
+import {
+    reducer as SettingReducer
+} from "./setting";
 
 
 // HACK: Needed for material-ui
@@ -68,7 +71,8 @@ const store = createStore(
     combineReducers({
         "app": AppReducer,
         "summary": SummaryReducer,
-        "router": routerReducer
+        "router": routerReducer,
+        "setting": SettingReducer
     }),
     applyMiddleware(
         thunk,

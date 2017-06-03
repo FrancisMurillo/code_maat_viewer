@@ -1,12 +1,19 @@
 import { handleActions } from "redux-actions";
 
-import { toggleSideMenu, fetchCommits, markFetching } from "./Action";
+import {
+    toggleSideMenu,
+    fetchCommits,
+    markFetching,
+    changeStartDate,
+    changeEndDate
+} from "./Action";
 
 const initialState = {
     "open": false,
     "commitData": null,
     "minDate": null,
     "maxData": null,
+    "startDate": null,
     "endDate": null,
     "fetching": false
 };
@@ -36,12 +43,28 @@ export default handleActions({
         const dates = commits.map(({commitDate}) => commitDate);
         const identity = (x) => x;
 
+        const minDate = minBy(identity, dates);
+        const maxDate = maxBy(identity, dates);
+
         return {
             ...state,
             "fetching": false,
             "commitData": action.payload,
-            "minDate": minBy(identity, dates),
-            "maxDate": maxBy(identity, dates)
+            minDate,
+            maxDate,
+            "startDate": minDate,
+            "endDate": maxDate
         };
-    }
+    },
+
+    [changeStartDate]: (state, action) => ({
+        ...state,
+        "startDate": action.payload
+    }),
+
+    [changeEndDate]: (state, action) => ({
+        ...state,
+        "endDate": action.payload
+    })
+
 }, initialState);

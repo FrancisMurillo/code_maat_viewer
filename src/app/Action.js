@@ -14,3 +14,9 @@ export const fetchCommitData = () => (dispatch, getState) => {
     dispatch(markFetching());
     dispatch(fetchCommits());
 };
+
+
+const secondArg = (_first, second) => second;
+
+export const changeStartDate = createAction("CHANGE_START_DATE", secondArg);
+export const changeEndDate = createAction("CHANGE_END_DATE", secondArg);

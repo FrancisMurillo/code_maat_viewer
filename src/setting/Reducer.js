@@ -1,9 +1,6 @@
 // import { handleActions } from "redux-actions";
 
-// const initialState = {
-//     date: {
-//         orientation: 'horizontal',
-//     }
-// };
+const initialState = {"date": {"orientation": "horizontal"}};
 
-export default (state, _action) => state;
+
+export default (state = initialState, _action) => state;

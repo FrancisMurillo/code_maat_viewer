@@ -5,8 +5,9 @@ import { div } from "react-dom";
 import Header from "./Header";
 import SideMenu from "./SideMenu";
 import ThisHome from "./Home";
+import Toolbar from "./Toolbar";
 
-import { toggleSideMenu, fetchCommitData, fetchCommits } from "./Action";
+import { toggleSideMenu, fetchCommitData } from "./Action";
 import Reducer from "./Reducer";
 
 
@@ -42,6 +43,7 @@ export const Frame = ({
                     showMenu
                     onTouchTap={onTouchTap}
                 />
+                <Toolbar />
                 {createElement(router)}
             </div>
         );

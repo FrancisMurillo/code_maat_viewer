@@ -23,7 +23,7 @@ import EntityOwnershipIcon from "material-ui/svg-icons/editor/bubble-chart";
 import EntityEffortIcon from "material-ui/svg-icons/action/donut-small";
 
 import SettingIcon from "material-ui/svg-icons/action/settings";
-import ExitIcon from "material-ui/svg-icons/action/exit-to-app";
+// import ExitIcon from "material-ui/svg-icons/action/exit-to-app";
 
 
 import { routes } from "../Router";
