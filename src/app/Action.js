@@ -2,6 +2,7 @@ import { createAction } from "redux-actions";
 
 import { WebService } from "../api";
 
+
 export const toggleSideMenu = createAction("TOGGLE_SIDE_MENU");
 
 export const markFetching = createAction("MARK_FETCHING_APP_DATA");
@@ -20,3 +21,5 @@ const secondArg = (_first, second) => second;
 
 export const changeStartDate = createAction("CHANGE_START_DATE", secondArg);
 export const changeEndDate = createAction("CHANGE_END_DATE", secondArg);
+
+export const refreshData = createAction("REFRESH_DATA");

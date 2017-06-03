@@ -8,8 +8,10 @@ import ThisHome from "./Home";
 import Toolbar from "./Toolbar";
 
 import { toggleSideMenu, fetchCommitData } from "./Action";
-import Reducer from "./Reducer";
-
+import Reducer, {
+    featureReducer,
+    joinReducers
+} from "./Reducer";
 
 export const Frame = ({
     open,
@@ -52,6 +54,13 @@ export const Frame = ({
 
 export const reducer = Reducer;
 export const Home = ThisHome;
+
+
+export {
+    featureReducer,
+    joinReducers
+};
+
 
 export default connect(
     (state) => ({...state.app}),

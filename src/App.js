@@ -27,7 +27,9 @@ import Router from "./Router";
 
 
 import FrameContainer, {
-    reducer as AppReducer
+    reducer as AppReducer,
+    joinReducers,
+    featureReducer as FeatureReducer
 } from "./app";
 
 
@@ -70,7 +72,7 @@ const history = createHistory();
 const store = createStore(
     combineReducers({
         "app": AppReducer,
-        "summary": SummaryReducer,
+        "summary": joinReducers(SummaryReducer, FeatureReducer),
         "router": routerReducer,
         "setting": SettingReducer
     }),

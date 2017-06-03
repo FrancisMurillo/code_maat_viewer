@@ -5,7 +5,8 @@ import {
     fetchCommits,
     markFetching,
     changeStartDate,
-    changeEndDate
+    changeEndDate,
+    refreshData
 } from "./Action";
 
 const initialState = {
@@ -26,6 +27,22 @@ const minBy = (f, xs) => (xs.reduceRight((prev, x) => {
     return (f(prev) > f(x)) ? x : prev;
 }));
 
+
+export const joinReducers = (...reducers) => {
+    return (state, action) => {
+        return reducers.reduce((prevState, reducer) => {
+            return reducer(prevState, action);
+        }, state);
+    };
+};
+
+export const featureReducer = handleActions({
+    [refreshData]: (state, _action) => ({
+        ...state,
+        "data": null,
+        "fetching": false
+    })
+}, {});
 
 export default handleActions({
     [toggleSideMenu]: (state, _action) => ({

@@ -82,9 +82,10 @@ export const Summary = ({ data, fetching, requestData }) => {
 export default connect(
     ({ summary }) => summary,
     {
-        "requestData": () => fetchSummaryData(
-                new Date(2017, 4, 14),
-                new Date(2017, 5, 3)
-            )
+        "requestData": () => (dispatch, getState) => {
+            const { "app": { startDate, endDate }} = getState();
+
+            dispatch(fetchSummaryData(startDate, endDate));
+        }
     }
 )(Summary);

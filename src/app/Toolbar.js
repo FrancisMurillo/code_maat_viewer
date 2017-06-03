@@ -11,8 +11,14 @@ import {
     ToolbarTitle
 } from "material-ui/Toolbar";
 import DatePicker from "material-ui/DatePicker";
+import RaisedButton from "material-ui/RaisedButton";
 
-import { changeStartDate, changeEndDate } from "./Action";
+
+import {
+    changeStartDate,
+    changeEndDate,
+    refreshData
+} from "./Action";
 
 const messages = defineMessages({
     "startDate": {
@@ -24,6 +30,11 @@ const messages = defineMessages({
         "id": "toolbar.endDate",
         "description": "End Date date picker hint text",
         "defaultMessage": "End Date"
+    },
+    "refresh": {
+        "id": "toolbar.refresh",
+        "description": "Refresh button button text",
+        "defaultMessage": "Refresh"
     }
 });
 
@@ -36,9 +47,10 @@ const ThisToolbar = injectIntl(
         endDate,
         onStartDateChange,
         onEndDateChange,
+        onRefresh,
         intl
     }) => (
-        <Toolbar>
+        <Toolbar >
             <ToolbarGroup
                 firstChild
             >
@@ -48,17 +60,23 @@ const ThisToolbar = injectIntl(
                     formatDate={intl.formatDate}
                     onChange={onStartDateChange}
                     minDate={minDate}
-                    maxDate={endDate}
-                    value={startDate}
+                    maxDate={endDate || maxDate}
+                    value={startDate || minDate}
                 />
                 <DatePicker
                     hintText={intl.formatMessage(messages.endDate)}
                     container={datePickerContainer}
                     formatDate={intl.formatDate}
                     onChange={onEndDateChange}
-                    minDate={startDate}
+                    minDate={startDate || minDate}
                     maxDate={maxDate}
-                    value={endDate}
+                    value={endDate || maxDate}
+                />
+                <ToolbarSeparator />
+                <RaisedButton
+                    label={intl.formatMessage(messages.refresh)}
+                    onTouchTap={onRefresh}
+                    primary
                 />
             </ToolbarGroup>
         </Toolbar>
@@ -68,6 +86,7 @@ const ThisToolbar = injectIntl(
 export default connect(
     (state) => state.app,
     {
+        "onRefresh": refreshData,
         "onStartDateChange": changeStartDate,
         "onEndDateChange": changeEndDate
     }
