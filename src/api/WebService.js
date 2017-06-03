@@ -16,13 +16,13 @@ class WebService {
     constructor(webRoot) {
         this.webService = axios.create({
             "baseURL": webRoot,
+            "responseType": "json",
             "headers": {"Accept": "application/json"}
         });
     }
 
     getAnalysis({ analysis, startDate, endDate}) {
         return new Promise((res, rej) => {
-            debugger;
             // if (!isAnalysisMethod(analysis)) {
             //     rej({
             //         "type": "validation",
