@@ -57,20 +57,22 @@ const ThisToolbar = injectIntl(
                 <DatePicker
                     hintText={intl.formatMessage(messages.startDate)}
                     container={datePickerContainer}
+                    autoOk
                     formatDate={intl.formatDate}
                     onChange={onStartDateChange}
                     minDate={minDate}
                     maxDate={endDate || maxDate}
-                    value={startDate || minDate}
+                    value={startDate}
                 />
                 <DatePicker
                     hintText={intl.formatMessage(messages.endDate)}
                     container={datePickerContainer}
+                    autoOk
                     formatDate={intl.formatDate}
                     onChange={onEndDateChange}
                     minDate={startDate || minDate}
                     maxDate={maxDate}
-                    value={endDate || maxDate}
+                    value={endDate}
                 />
                 <ToolbarSeparator />
                 <RaisedButton
