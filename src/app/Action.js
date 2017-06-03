@@ -1,3 +1,16 @@
-export const TOGGLE_SIDE_MENU = "TOGGLE_SIDE_MENU";
+import { createAction } from "redux-actions";
 
-export const toggleSideMenu = () => ({"type": TOGGLE_SIDE_MENU});
+import { WebService } from "../api";
+
+export const toggleSideMenu = createAction("TOGGLE_SIDE_MENU");
+
+export const markFetching = createAction("MARK_FETCHING_APP_DATA");
+
+export const fetchCommits = createAction(
+    "FETCH_REPO_COMMITS",
+     WebService.getCommits.bind(WebService));
+
+export const fetchCommitData = () => (dispatch, getState) => {
+    dispatch(markFetching());
+    dispatch(fetchCommits());
+};

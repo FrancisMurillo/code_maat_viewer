@@ -83,7 +83,14 @@ class WebService {
             endDate
         });
     }
-}
 
+    getCommits() {
+        return this.webService.get("/api/commits")
+            .then(({data}) => data.map(({commitDate, commitHash}) => ({
+                commitHash,
+                "commitDate": new Date(commitDate)
+            })));
+    }
+}
 
 export default new WebService(config.webRoot);

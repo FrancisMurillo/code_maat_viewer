@@ -6,40 +6,56 @@ import Header from "./Header";
 import SideMenu from "./SideMenu";
 import ThisHome from "./Home";
 
-import { toggleSideMenu } from "./Action";
+import { toggleSideMenu, fetchCommitData, fetchCommits } from "./Action";
 import Reducer from "./Reducer";
+
 
 export const Frame = ({
     open,
     router,
     onRequestChange,
-    onTouchTap
-}) =>
-    (
-        <div>
-            <SideMenu
-                onRequestChange={onRequestChange}
-                open={open}
-            />
-            <Header
-                onTouchTap={onTouchTap}
-            />
-            {createElement(router)}
-        </div>
-    );
+    onTouchTap,
+    commitData,
+    fetching,
+    requestData
+}) => {
+    if (commitData === null && !fetching) {
+        requestData();
+    }
 
+    if (fetching) {
+        return (
+            <div>
+                <Header
+                    showMenu={false}
+                />
+            </div>
+        );
+    } else {
+        return (
+            <div>
+                <SideMenu
+                    onRequestChange={onRequestChange}
+                    open={open}
+                />
+                <Header
+                    showMenu
+                    onTouchTap={onTouchTap}
+                />
+                {createElement(router)}
+            </div>
+        );
+    }
+};
 
 export const reducer = Reducer;
 export const Home = ThisHome;
 
 export default connect(
     (state) => ({...state.app}),
-    (dispatch) => ({
-        onTouchTap() {
-            dispatch(toggleSideMenu());
-        },
-        onRequestChange() {
-            dispatch(toggleSideMenu());
-        }
-    })
+    {
+        "onTouchTap": toggleSideMenu,
+        "onRequestChange": toggleSideMenu,
+        "requestData": fetchCommitData
+    }
 )(Frame);

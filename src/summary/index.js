@@ -40,14 +40,16 @@ export const Summary = ({ data, fetching, requestData }) => {
         };
 
         return (
-            <Table>
+            <Table
+                striped
+            >
                 <TableHeader>
                     <TableRow>
                         {columnHeaders.map((header) => (
                             <TableHeaderColumn key={header}>
                                 {header}
                             </TableHeaderColumn>
-                      ))}
+                  ))}
                     </TableRow>
                 </TableHeader>
                 <TableBody>

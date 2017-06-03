@@ -12,10 +12,10 @@ const messages = defineMessages({
 });
 
 
-export default injectIntl(({onTouchTap, intl}) => (
+export default injectIntl(({showMenu, onTouchTap, intl}) => (
     <MuiAppBar
         title={intl.formatMessage(messages.title)}
-        showMenuIconButton
+        showMenuIconButton={showMenu}
         iconClassNameRight="muidocs-icon-navigation-expand-more"
         onLeftIconButtonTouchTap={onTouchTap}
     />

@@ -9,8 +9,16 @@ export const fetchData = createAction(
 
 export const markFetching = createAction("MARK_FETCHING_SUMMARY_DATA");
 
+export const preventFetch = createAction("PREVENT_FETCHING_SUMMARY_DATA");
 
-export const fetchSummaryData = (statDate, endDate) => (dispatch) => {
-    dispatch(markFetching());
-    dispatch(fetchData(statDate, endDate));
-};
+export const fetchSummaryData = (startDate, endDate) =>
+    (dispatch, getState) => {
+        const {"app": { minDate, maxDate }} = getState();
+
+        if (minDate && maxDate) {
+            dispatch(markFetching());
+            dispatch(fetchData(startDate, endDate));
+        } else {
+            dispatch(preventFetch());
+        }
+    };
