@@ -1,22 +1,25 @@
 import React from "react";
 import { div } from "react-dom";
-import { createAction } from "redux-action";
 import { connect } from "react-redux";
 
 import CircularProgress from "material-ui/CircularProgress";
-
-import { WebService, AnalysisMethod } from "../api";
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn
+} from "material-ui/Table";
 
 import Reducer from "./Reducer";
-
+import { fetchSummaryData } from "./Action";
 
 export const reducer = Reducer;
 
 
-const randomAction = createAction("Meow");
-
 export const Summary = ({ data, fetching, requestData }) => {
-    if (data === null) {
+    if (data === null && !fetching) {
         requestData();
     }
 
@@ -28,31 +31,58 @@ export const Summary = ({ data, fetching, requestData }) => {
             />
         );
     } else if (data.length) {
+        const columnHeaders = Object.keys(data[0]);
+
+        const zip = (...rows) => {
+            return rows[0].map((item, index) => {
+                return rows.map((row) => row[index]);
+            });
+        };
+
         return (
-            <div>Hello</div>
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        {columnHeaders.map((header) => (
+                            <TableHeaderColumn key={header}>
+                                {header}
+                            </TableHeaderColumn>
+                      ))}
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {data.map((record) => {
+                        const headers = Object.keys(record);
+                        const values = headers.map((header) => record[header]);
+                        const entries = zip(headers, values);
+
+                        return (
+                            <TableRow key={record.statistic}>
+                                {entries.map(([header, value]) => (
+                                    <TableRowColumn key={header}>
+                                        {value}
+                                    </TableRowColumn>
+                          ))}
+                            </TableRow>
+                        );
+                    })}
+                </TableBody>
+            </Table>
+        );
+    } else {
+        return (
+            <div>{"Nothing"}</div>
         );
     }
-
-    return (
-        <div>Meow</div>
-    );
-
 };
 
 
 export default connect(
     ({ summary }) => summary,
     {
-        requestData() {
-            const x = WebService.getAnalysis({
-                "analysis": AnalysisMethod.SUMMARY,
-                "startDate": new Date(2000, 0, 1),
-                "endDate": new Date(2100, 0, 1)
-            });
-
-            debugger;
-
-            return randomAction();
-        }
+        "requestData": () => fetchSummaryData(
+                new Date(2017, 4, 14),
+                new Date(2017, 5, 3)
+            )
     }
 )(Summary);

@@ -2,12 +2,12 @@ import axios from "axios";
 import moment from "moment";
 
 import config from "./Config";
-import AnalysisMethod from "./AnalysisMethod";
+// import AnalysisMethod from "./AnalysisMethod";
 
 const isDate =
       (value) => Object.prototype.toString.call(value) === "[object Date]";
 
-const isAnalysisMethod = (value) => AnalysisMethod[value];
+// const isAnalysisMethod = (value) => AnalysisMethod[value];
 
 const serializeDate = (date) => moment(date).format("YYYY-MM-DD");
 
@@ -68,7 +68,19 @@ class WebService {
                         "start-date": serializeDate(startDate),
                         "end-date": serializeDate(endDate)
                     }
-                });
+                })
+                .then(({data}) => {
+                    res(data);
+                })
+                .catch(rej);
+        });
+    }
+
+    prepareAnalysisRequest(analysis) {
+        return (startDate, endDate) => this.getAnalysis({
+            analysis,
+            startDate,
+            endDate
         });
     }
 }

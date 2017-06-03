@@ -51,20 +51,23 @@
         "no-magic-numbers": [
             1,
             {
-                "ignore": [0]
+                "ignore": [0, 3, 4, 5, 14, 2017]
             }
         ],
         "capitalized-comments": 0,
         "no-inline-comments": 0,
         "line-comment-position": 0,
+        "dot-location": [0, "property"],
+        "arrow-body-style": 0,
         "padded-blocks": 0,
         "one-var": 0,
         "sort-imports": 0,
         "sort-keys": 0,
         "no-debugger": 2,
         "no-console": 2,
-        "no-unused-vars": 1,
+        "no-unused-vars": [1, { "argsIgnorePattern": "^_"}],
         "no-empty-pattern": 1,
+        "no-else-return": 0,
         "no-extra-parens": [
             0,
             "all",
@@ -88,6 +91,7 @@
         "react/forbid-prop-types": 0,
         "react/jsx-no-bind": 0,
         "react/prop-types": 0,
+        "react/no-multi-comp": 0,
 
         "react/jsx-filename-extension": 0
     }

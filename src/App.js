@@ -71,10 +71,10 @@ const store = createStore(
         "router": routerReducer
     }),
     applyMiddleware(
-        logger,
         thunk,
         promiseMiddleware,
-        routerMiddleware(history)
+        routerMiddleware(history),
+        logger
     ));
 
 
