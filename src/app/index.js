@@ -9,6 +9,7 @@ import Header from "./Header";
 import SideMenu from "./SideMenu";
 import Home from "./Home";
 import Toolbar from "./Toolbar";
+import Provider from "./Provider";
 
 import {
     toggleSideMenu,
@@ -19,6 +20,10 @@ import reducer, {
     featureReducer,
     joinReducers
 } from "./Reducer";
+
+import store, {
+    history
+} from "./Store";
 
 import Router, { routes } from "./Routing";
 
@@ -51,8 +56,7 @@ export const Frame = injectIntl(class Frame extends Component {
             onRequestChange,
             onTouchTap,
             commitData,
-            fetching,
-            history
+            fetching
         } = this.props;
 
         if (commitData === null || fetching) {
@@ -97,10 +101,9 @@ export const Frame = injectIntl(class Frame extends Component {
 
 
 export {
-    reducer,
-    featureReducer,
-    joinReducers,
-    Home
+    store,
+    history,
+    Provider
 };
 
 
