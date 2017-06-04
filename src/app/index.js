@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { div } from "react-dom";
 
 import { connect } from "react-redux";
@@ -30,56 +30,68 @@ const messages = defineMessages({
     }
 });
 
-export const Frame = injectIntl(({
-    intl,
-    open,
-    title,
-    onRequestChange,
-    onTouchTap,
-    commitData,
-    fetching,
-    history,
-    requestData
-}) => {
-    if (commitData === null && !fetching) {
-        requestData();
+export const Frame = injectIntl(class Frame extends Component {
+    componentDidMount() {
+        const {
+            commitData,
+            fetching,
+            requestData
+        } = this.props;
+
+        if (commitData === null && !fetching) {
+            requestData();
+        }
     }
 
-    if (commitData === null || fetching) {
-        return (
-            <div>
-                <Header
-                    showMenu={false}
-                />
-            </div>
-        );
-    } else if (commitData.length) {
-        return (
-            <div>
-                <SideMenu
-                    onRequestChange={onRequestChange}
-                    open={open}
-                />
-                <Header
-                    showMenu
-                    title={title ? intl.formatMessage(title) : null}
-                    onTouchTap={onTouchTap}
-                />
-                <Toolbar />
-                <Router
-                    history={history}
-                />
-            </div>
-        );
-    } else {
-        return (
-            <div>
-                <Header
-                    showMenu={false}
-                />
-                <div>{intl.formatMessage(messages.noCommit)}</div>
-            </div>
-        );
+    render() {
+        const {
+            intl,
+            open,
+            title,
+            onRequestChange,
+            onTouchTap,
+            commitData,
+            fetching,
+            history
+        } = this.props;
+
+        if (commitData === null || fetching) {
+            return (
+                <div>
+                    <Header
+                        showMenu={false}
+                    />
+                </div>
+            );
+        } else if (commitData.length) {
+            return (
+                <div>
+                    <SideMenu
+                        onRequestChange={onRequestChange}
+                        open={open}
+                    />
+                    <Header
+                        showMenu
+                        title={title ? intl.formatMessage(title) : null}
+                        onTouchTap={onTouchTap}
+                    />
+                    <Toolbar />
+                    <Router
+                        history={history}
+                    />
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <Header
+                        showMenu={false}
+                    />
+                    <div>{intl.formatMessage(messages.noCommit)}</div>
+                </div>
+            );
+        }
+
     }
 });
 

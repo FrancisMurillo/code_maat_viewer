@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { div } from "react-dom";
 
 import { injectIntl, defineMessages } from "react-intl";
@@ -53,70 +53,88 @@ const fieldMessageMapping = {
 };
 
 
-export const Summary = injectIntl(({ intl, data, fetching, requestData }) => {
-    if (data === null && !fetching) {
-        requestData();
+export const Summary = injectIntl(class Page extends Component {
+    componentDidUpdate() {
+        const {
+            data,
+            fetching,
+            requestData
+        } = this.props;
+
+        if (data === null && !fetching) {
+            requestData();
+        }
     }
 
-    if (data === null) {
-        return (
-            <CircularProgress
-                size={80}
-                thickness={8}
-            />
-        );
-    } else if (data.length) {
-        const columnHeaders = Object.keys(data[0]);
+    render() {
+        const {
+            intl,
+            data
+        } = this.props;
 
-        const zip = (...rows) => {
-            return rows[0].map((item, index) => {
-                return rows.map((row) => row[index]);
-            });
-        };
+        if (data === null) {
+            return (
+                <CircularProgress
+                    size={80}
+                    thickness={8}
+                />
+            );
+        } else if (data.length) {
+            const columnHeaders = Object.keys(data[0]);
 
-        return (
-            <Table
-                striped
-            >
-                <TableHeader>
-                    <TableRow>
-                        {columnHeaders.map((header) => (
-                            <TableHeaderColumn key={header}>
-                                {header}
-                            </TableHeaderColumn>
-                  ))}
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {data.map((record) => {
-                        const headers = Object.keys(record);
-                        const values = headers.map((header) => record[header]);
-                        const entries = zip(headers, values);
+            const zip = (...rows) => {
+                return rows[0].map((item, index) => {
+                    return rows.map((row) => row[index]);
+                });
+            };
 
-                        return (
-                            <TableRow key={record.statistic}>
-                                {entries.map(([header, value]) => (
-                                    <TableRowColumn key={`${header}-${value}`}>
-                                        {
-                                    fieldMessageMapping[value]
-                                        ? intl.formatMessage(
-                                            messages[
-                                                fieldMessageMapping[value]
-                                            ])
-                                        : value
-                                }
-                                    </TableRowColumn>
-                          ))}
-                            </TableRow>
-                        );
-                    })}
-                </TableBody>
-            </Table>
-        );
-    } else {
-        return (
-            <div>{"Nothing"}</div>
-        );
+            return (
+                <Table
+                    striped
+                >
+                    <TableHeader>
+                        <TableRow>
+                            {columnHeaders.map((header) => (
+                                <TableHeaderColumn key={header}>
+                                    {header}
+                                </TableHeaderColumn>
+                      ))}
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {data.map((record) => {
+                            const headers = Object.keys(record);
+                            const values = headers.map(
+                                (header) => record[header]);
+                            const entries = zip(headers, values);
+
+                            return (
+                                <TableRow key={record.statistic}>
+                                    {entries.map(([header, value]) => (
+                                        <TableRowColumn
+                                            key={`${header}-${value}`}
+                                        >
+                                            {
+                                        fieldMessageMapping[value]
+                                            ? intl.formatMessage(
+                                                messages[
+                                                    fieldMessageMapping[value]
+                                                ])
+                                            : value
+                                    }
+                                        </TableRowColumn>
+                              ))}
+                                </TableRow>
+                            );
+                        })}
+                    </TableBody>
+                </Table>
+            );
+        } else {
+            return (
+                <div>{"Nothing"}</div>
+            );
+        }
     }
 });
 

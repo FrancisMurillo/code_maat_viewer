@@ -141,6 +141,7 @@ export const routes = [
         "path": "/analysis/setting",
         "component": NotImplemented
     }
+
 ].map((route) => {
     return {
         ...route,
