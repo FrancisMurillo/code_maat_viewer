@@ -12,10 +12,12 @@ import {
   TableRowColumn
 } from "material-ui/Table";
 
-import Reducer from "./Reducer";
+import reducer from "./Reducer";
 import { fetchSummaryData } from "./Action";
 
-export const reducer = Reducer;
+export {
+    reducer
+};
 
 
 export const Summary = ({ data, fetching, requestData }) => {
