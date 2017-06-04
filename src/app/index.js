@@ -7,7 +7,6 @@ import { injectIntl, defineMessages } from "react-intl";
 
 import Header from "./Header";
 import SideMenu from "./SideMenu";
-import Home from "./Home";
 import Toolbar from "./Toolbar";
 import Provider from "./Provider";
 
@@ -15,11 +14,6 @@ import {
     toggleSideMenu,
     fetchCommitData
 } from "./Action";
-
-import reducer, {
-    featureReducer,
-    joinReducers
-} from "./Reducer";
 
 import store, {
     history
@@ -99,13 +93,11 @@ export const Frame = injectIntl(class Frame extends Component {
     }
 });
 
-
 export {
     store,
     history,
     Provider
 };
-
 
 export default connect(
     (state) => {
