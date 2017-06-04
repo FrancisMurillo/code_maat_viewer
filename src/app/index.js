@@ -4,11 +4,15 @@ import { div } from "react-dom";
 
 import Header from "./Header";
 import SideMenu from "./SideMenu";
-import ThisHome from "./Home";
+import Home from "./Home";
 import Toolbar from "./Toolbar";
 
-import { toggleSideMenu, fetchCommitData } from "./Action";
-import Reducer, {
+import {
+    toggleSideMenu,
+    fetchCommitData
+} from "./Action";
+
+import reducer, {
     featureReducer,
     joinReducers
 } from "./Reducer";
@@ -52,13 +56,12 @@ export const Frame = ({
     }
 };
 
-export const reducer = Reducer;
-export const Home = ThisHome;
-
 
 export {
+    reducer,
     featureReducer,
-    joinReducers
+    joinReducers,
+    Home
 };
 
 

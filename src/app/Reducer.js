@@ -6,6 +6,7 @@ import {
     markFetching,
     changeStartDate,
     changeEndDate,
+    clearDates,
     refreshData
 } from "./Action";
 
@@ -13,10 +14,13 @@ const initialState = {
     "open": false,
     "commitData": null,
     "minDate": null,
-    "maxData": null,
+    "maxDate": null,
     "startDate": null,
     "endDate": null,
-    "fetching": false
+    "fetching": false,
+
+    "appStartDate": null,
+    "appEndDate": null
 };
 
 const maxBy = (f, xs) => (xs.reduceRight((prev, x) => {
@@ -36,15 +40,7 @@ export const joinReducers = (...reducers) => {
     };
 };
 
-export const featureReducer = handleActions({
-    [refreshData]: (state, _action) => ({
-        ...state,
-        "data": null,
-        "fetching": false
-    })
-}, {});
-
-export default handleActions({
+export const reducer = handleActions({
     [toggleSideMenu]: (state, _action) => ({
         ...state,
         "open": !state.open
@@ -60,17 +56,12 @@ export default handleActions({
         const dates = commits.map(({commitDate}) => commitDate);
         const identity = (x) => x;
 
-        const minDate = minBy(identity, dates);
-        const maxDate = maxBy(identity, dates);
-
         return {
             ...state,
             "fetching": false,
             "commitData": action.payload,
-            minDate,
-            maxDate,
-            "startDate": minDate,
-            "endDate": maxDate
+            "minDate": minBy(identity, dates),
+            "maxDate": maxBy(identity, dates)
         };
     },
 
@@ -82,6 +73,29 @@ export default handleActions({
     [changeEndDate]: (state, action) => ({
         ...state,
         "endDate": action.payload
-    })
+    }),
 
+    [clearDates]: (state, _action) => ({
+        ...state,
+        "startDate": null,
+        "endDate": null
+    })
 }, initialState);
+
+export const dateReducer = (state = initialState, _action) => ({
+    ...state,
+    "appStartDate": state.startDate || state.minDate,
+    "appEndDate": state.endDate || state.maxDate
+});
+
+export const actionReducer = handleActions({
+    [refreshData]: (state, _action) => ({
+        ...state,
+        "data": null,
+        "fetching": false
+    })
+}, initialState);
+
+export const featureReducer = joinReducers(actionReducer);
+
+export default joinReducers(reducer, dateReducer);

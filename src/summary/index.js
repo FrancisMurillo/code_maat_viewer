@@ -83,9 +83,9 @@ export default connect(
     ({ summary }) => summary,
     {
         "requestData": () => (dispatch, getState) => {
-            const { "app": { startDate, endDate }} = getState();
+            const { "app": { appStartDate, appEndDate }} = getState();
 
-            dispatch(fetchSummaryData(startDate, endDate));
+            dispatch(fetchSummaryData(appStartDate, appEndDate));
         }
     }
 )(Summary);

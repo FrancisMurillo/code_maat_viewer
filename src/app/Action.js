@@ -21,5 +21,6 @@ const secondArg = (_first, second) => second;
 
 export const changeStartDate = createAction("CHANGE_START_DATE", secondArg);
 export const changeEndDate = createAction("CHANGE_END_DATE", secondArg);
+export const clearDates = createAction("CLEAR_DATES");
 
 export const refreshData = createAction("REFRESH_DATA");

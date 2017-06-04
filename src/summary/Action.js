@@ -12,10 +12,8 @@ export const markFetching = createAction("MARK_FETCHING_SUMMARY_DATA");
 export const preventFetch = createAction("PREVENT_FETCHING_SUMMARY_DATA");
 
 export const fetchSummaryData = (startDate, endDate) =>
-    (dispatch, getState) => {
-        const {"app": { minDate, maxDate }} = getState();
-
-        if (minDate && maxDate) {
+    (dispatch) => {
+        if (startDate && endDate) {
             dispatch(markFetching());
             dispatch(fetchData(startDate, endDate));
         } else {

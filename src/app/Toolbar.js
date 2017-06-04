@@ -17,6 +17,7 @@ import RaisedButton from "material-ui/RaisedButton";
 import {
     changeStartDate,
     changeEndDate,
+    clearDates,
     refreshData
 } from "./Action";
 
@@ -30,6 +31,11 @@ const messages = defineMessages({
         "id": "toolbar.endDate",
         "description": "End Date date picker hint text",
         "defaultMessage": "End Date"
+    },
+    "clear": {
+        "id": "toolbar.clear",
+        "description": "Clear button button text",
+        "defaultMessage": "Clear"
     },
     "refresh": {
         "id": "toolbar.refresh",
@@ -47,6 +53,7 @@ const ThisToolbar = injectIntl(
         endDate,
         onStartDateChange,
         onEndDateChange,
+        onClear,
         onRefresh,
         intl
     }) => (
@@ -76,6 +83,11 @@ const ThisToolbar = injectIntl(
                 />
                 <ToolbarSeparator />
                 <RaisedButton
+                    label={intl.formatMessage(messages.clear)}
+                    onTouchTap={onClear}
+                    primary
+                />
+                <RaisedButton
                     label={intl.formatMessage(messages.refresh)}
                     onTouchTap={onRefresh}
                     primary
@@ -88,6 +100,7 @@ const ThisToolbar = injectIntl(
 export default connect(
     (state) => state.app,
     {
+        "onClear": clearDates,
         "onRefresh": refreshData,
         "onStartDateChange": changeStartDate,
         "onEndDateChange": changeEndDate
