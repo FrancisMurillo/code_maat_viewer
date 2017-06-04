@@ -27,18 +27,18 @@ import Router from "./Router";
 
 
 import FrameContainer, {
-    reducer as AppReducer,
+    reducer as appReducer,
     joinReducers,
-    featureReducer as FeatureReducer
+    featureReducer
 } from "./app";
 
 
 import {
-    reducer as SummaryReducer
+    reducer as summaryReducer
 } from "./summary";
 
 import {
-    reducer as SettingReducer
+    reducer as settingReducer
 } from "./setting";
 
 
@@ -71,10 +71,10 @@ const history = createHistory();
 
 const store = createStore(
     combineReducers({
-        "app": AppReducer,
-        "summary": joinReducers(SummaryReducer, FeatureReducer),
+        "app": appReducer,
+        "summary": joinReducers(summaryReducer, featureReducer),
         "router": routerReducer,
-        "setting": SettingReducer
+        "setting": settingReducer
     }),
     applyMiddleware(
         thunk,
