@@ -185,7 +185,7 @@ export const Router = injectIntl(
 
         return (
             <Drawer
-                docked={false}
+                docked
                 open={open}
                 width={400}
                 onRequestChange={onRequestChange}

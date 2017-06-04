@@ -1,6 +1,9 @@
 import React, { createElement } from "react";
-import { connect } from "react-redux";
 import { div } from "react-dom";
+
+import { connect } from "react-redux";
+
+import { injectIntl, defineMessages } from "react-intl";
 
 import Header from "./Header";
 import SideMenu from "./SideMenu";
@@ -17,7 +20,16 @@ import reducer, {
     joinReducers
 } from "./Reducer";
 
-export const Frame = ({
+const messages = defineMessages({
+    "noCommit": {
+        "id": "frame.noCommit",
+        "description": "Message for no commit label",
+        "defaultMessage": "No commits made fo the repo yet."
+    }
+});
+
+export const Frame = injectIntl(({
+    intl,
     open,
     router,
     onRequestChange,
@@ -30,7 +42,7 @@ export const Frame = ({
         requestData();
     }
 
-    if (fetching) {
+    if (commitData === null || fetching) {
         return (
             <div>
                 <Header
@@ -38,7 +50,7 @@ export const Frame = ({
                 />
             </div>
         );
-    } else {
+    } else if (commitData.length) {
         return (
             <div>
                 <SideMenu
@@ -53,8 +65,17 @@ export const Frame = ({
                 {createElement(router)}
             </div>
         );
+    } else {
+        return (
+            <div>
+                <Header
+                    showMenu={false}
+                />
+                <div>{intl.formatMessage(messages.noCommit)}</div>
+            </div>
+        );
     }
-};
+});
 
 
 export {

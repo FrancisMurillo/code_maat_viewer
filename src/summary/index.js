@@ -1,5 +1,8 @@
 import React from "react";
 import { div } from "react-dom";
+
+import { injectIntl, defineMessages } from "react-intl";
+
 import { connect } from "react-redux";
 
 import CircularProgress from "material-ui/CircularProgress";
@@ -19,8 +22,38 @@ export {
     reducer
 };
 
+const messages = defineMessages({
+    "numberOfCommits": {
+        "id": "summary.numberOfCommits",
+        "description": "Number of Commits field label",
+        "defaultMessage": "Number of Commits"
+    },
+    "numberOfEntities": {
+        "id": "summary.numberOfEntities",
+        "description": "Number of Entities field label",
+        "defaultMessage": "Number of Entities"
+    },
+    "numberOfEntitiesChanged": {
+        "id": "summary.numberOfEntitiesChanged",
+        "description": "Number of Entities Changed field label",
+        "defaultMessage": "Number of Entities Changed"
+    },
+    "numberOfAuthors": {
+        "id": "summary.numberOfAuthors",
+        "description": "Number of Authors field label",
+        "defaultMessage": "Number of Authors"
+    }
+});
 
-export const Summary = ({ data, fetching, requestData }) => {
+const fieldMessageMapping = {
+    "number-of-commits": "numberOfCommits",
+    "number-of-entities": "numberOfEntities",
+    "number-of-entities-changed": "numberOfEntitiesChanged",
+    "number-of-authors": "numberOfAuthors"
+};
+
+
+export const Summary = injectIntl(({ intl, data, fetching, requestData }) => {
     if (data === null && !fetching) {
         requestData();
     }
@@ -63,8 +96,15 @@ export const Summary = ({ data, fetching, requestData }) => {
                         return (
                             <TableRow key={record.statistic}>
                                 {entries.map(([header, value]) => (
-                                    <TableRowColumn key={header}>
-                                        {value}
+                                    <TableRowColumn key={`${header}-${value}`}>
+                                        {
+                                    fieldMessageMapping[value]
+                                        ? intl.formatMessage(
+                                            messages[
+                                                fieldMessageMapping[value]
+                                            ])
+                                        : value
+                                }
                                     </TableRowColumn>
                           ))}
                             </TableRow>
@@ -78,7 +118,7 @@ export const Summary = ({ data, fetching, requestData }) => {
             <div>{"Nothing"}</div>
         );
     }
-};
+});
 
 
 export default connect(
