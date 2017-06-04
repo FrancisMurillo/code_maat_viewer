@@ -5,6 +5,8 @@ import { injectIntl, defineMessages } from "react-intl";
 
 import { connect } from "react-redux";
 
+import {Tabs, Tab} from "material-ui/Tabs";
+
 import reducer from "./Reducer";
 import { fetchRevisionData } from "./Action";
 
@@ -15,6 +17,11 @@ export {
 };
 
 const messages = defineMessages({
+    "record": {
+        "id": "revision.record",
+        "description": "Record Table tab label",
+        "defaultMessage": "Records"
+    },
     "entity": {
         "id": "revision.entity",
         "description": "Entity field label",
@@ -53,11 +60,17 @@ export const Page = injectIntl(class Page extends Component {
         } = this.props;
 
         return (
-            <RecordTable
-                data={data}
-                headerMapping={fieldMessageMapping}
-                headerLabels={messages}
-            />
+            <Tabs>
+                <Tab
+                    label={intl.formatMessage(messages.record)}
+                >
+                    <RecordTable
+                        data={data}
+                        headerMapping={fieldMessageMapping}
+                        headerLabels={messages}
+                    />
+                </Tab>
+            </Tabs>
         );
     }
 });
