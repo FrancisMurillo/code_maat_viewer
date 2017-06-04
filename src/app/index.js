@@ -104,7 +104,7 @@ export default connect(
             const route = routes.reduce(
                 (prev, thisRoute) => {
                     return thisRoute.path.startsWith(pathname)
-                        ? route : prev;
+                        ? thisRoute : prev;
                 },
                 null);
 

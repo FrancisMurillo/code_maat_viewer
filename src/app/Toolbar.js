@@ -7,8 +7,7 @@ import { connect } from "react-redux";
 import {
     Toolbar,
     ToolbarGroup,
-    ToolbarSeparator,
-    ToolbarTitle
+    ToolbarSeparator
 } from "material-ui/Toolbar";
 import DatePicker from "material-ui/DatePicker";
 import RaisedButton from "material-ui/RaisedButton";
