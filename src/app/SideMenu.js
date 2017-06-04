@@ -25,8 +25,7 @@ import EntityEffortIcon from "material-ui/svg-icons/action/donut-small";
 import SettingIcon from "material-ui/svg-icons/action/settings";
 // import ExitIcon from "material-ui/svg-icons/action/exit-to-app";
 
-
-import { routes } from "../Router";
+import { routes } from "./Routing";
 
 const messages = defineMessages({
     "codeMaat": {
@@ -34,80 +33,17 @@ const messages = defineMessages({
         "description": "Code Maat subheader label",
         "defaultMessage": "Code Maat"
     },
-
-    "dashboard": {
-        "id": "menu.dashboard",
-        "description": "Dashboard menu label",
-        "defaultMessage": "Dashboard"
-    },
     "analysis": {
         "id": "menu.analysis",
         "description": "Analysis subheader label",
         "defaultMessage": "Analysis"
     },
-    "summary": {
-        "id": "menu.summary",
-        "description": "Summary menu label",
-        "defaultMessage": "Summary"
-    },
-    "revision": {
-        "id": "menu.revision",
-        "description": "Revision menu label",
-        "defaultMessage": "Revisions"
-    },
-    "coupling": {
-        "id": "menu.coupling",
-        "description": "Coupling menu label",
-        "defaultMessage": "Coupling"
-    },
-    "age": {
-        "id": "menu.age",
-        "description": "Age menu label",
-        "defaultMessage": "Age"
-    },
-    "absoluteChurn": {
-        "id": "menu.absoluteChurn",
-        "description": "Absolute Churn menu label",
-        "defaultMessage": "Absolute Churn"
-    },
-    "authorChurn": {
-        "id": "menu.authorChurn",
-        "description": "Author Churn menu label",
-        "defaultMessage": "Author Churn"
-    },
-    "entityChurn": {
-        "id": "menu.entityChurn",
-        "description": "Entity Churn menu label",
-        "defaultMessage": "Entity Churn"
-    },
-    "entityOwnership": {
-        "id": "menu.entityOwnership",
-        "description": "Entity Ownership menu label",
-        "defaultMessage": "Entity Ownership"
-    },
-    "entityEffort": {
-        "id": "menu.entityEffort",
-        "description": "Entity Effort menu label",
-        "defaultMessage": "Entity Effort"
-    },
-
     "preferences": {
         "id": "menu.preferences",
         "description": "Preferences subheader label",
         "defaultMessage": "Preferences"
-    },
-    "setting": {
-        "id": "menu.setting",
-        "description": "Setting menu label",
-        "defaultMessage": "Settings"
-    },
-    "exit": {
-        "id": "menu.exit",
-        "description": "Exit menu label",
-        "defaultMessage": "Exit"
     }
 });
-
 
 const codeMaatRouteKeys = [
     {
@@ -166,8 +102,8 @@ const preferenceRouteKeys = [
 export const Router = injectIntl(
     ({ intl, open, onRequestChange, onChangeRoute }) => {
         const renderRouteKeys = (routeKeys) => routeKeys.map(({key, icon}) => {
-            const route = routes.find((thisRoute) => thisRoute.key === key),
-                label = intl.formatMessage(messages[key]);
+            const route = routes.find((thisRoute) => thisRoute.key === key);
+            const label = intl.formatMessage(route.title);
 
             const { path } = route;
 
@@ -185,7 +121,7 @@ export const Router = injectIntl(
 
         return (
             <Drawer
-                docked
+                docked={false}
                 open={open}
                 width={400}
                 onRequestChange={onRequestChange}

@@ -23,9 +23,6 @@ import injectTapEventPlugin from "react-tap-event-plugin";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 
-import Router from "./Router";
-
-
 import FrameContainer, {
     reducer as appReducer,
     joinReducers,
@@ -84,13 +81,6 @@ const store = createStore(
     ));
 
 
-const AppRouting = () => (
-    <Router
-        history={history}
-    />
-);
-
-
 export default () => (
     <Provider
         store={store}
@@ -103,7 +93,7 @@ export default () => (
                 muiTheme={muiTheme}
             >
                 <FrameContainer
-                    router={AppRouting}
+                    history={history}
                 />
             </MuiThemeProvider>
         </IntlProvider>

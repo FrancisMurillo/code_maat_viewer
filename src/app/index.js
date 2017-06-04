@@ -1,4 +1,4 @@
-import React, { createElement } from "react";
+import React from "react";
 import { div } from "react-dom";
 
 import { connect } from "react-redux";
@@ -20,6 +20,8 @@ import reducer, {
     joinReducers
 } from "./Reducer";
 
+import Router, { routes } from "./Routing";
+
 const messages = defineMessages({
     "noCommit": {
         "id": "frame.noCommit",
@@ -31,11 +33,12 @@ const messages = defineMessages({
 export const Frame = injectIntl(({
     intl,
     open,
-    router,
+    title,
     onRequestChange,
     onTouchTap,
     commitData,
     fetching,
+    history,
     requestData
 }) => {
     if (commitData === null && !fetching) {
@@ -59,10 +62,13 @@ export const Frame = injectIntl(({
                 />
                 <Header
                     showMenu
+                    title={title ? intl.formatMessage(title) : null}
                     onTouchTap={onTouchTap}
                 />
                 <Toolbar />
-                {createElement(router)}
+                <Router
+                    history={history}
+                />
             </div>
         );
     } else {
@@ -87,7 +93,31 @@ export {
 
 
 export default connect(
-    (state) => ({...state.app}),
+    (state) => {
+        const {
+            "router": { location },
+            app
+        } = state;
+
+        if (location) {
+            const { pathname } = location;
+            const route = routes.reduce(
+                (prev, thisRoute) => {
+                    return thisRoute.path.startsWith(pathname)
+                        ? route : prev;
+                },
+                null);
+
+            const { title } = route;
+
+            return {
+                ...app,
+                title
+            };
+        } else {
+            return {...app};
+        }
+    },
     {
         "onTouchTap": toggleSideMenu,
         "onRequestChange": toggleSideMenu,

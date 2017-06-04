@@ -1,4 +1,5 @@
 import React from "react";
+
 import { injectIntl, defineMessages } from "react-intl";
 
 import MuiAppBar from "material-ui/AppBar";
@@ -12,9 +13,9 @@ const messages = defineMessages({
 });
 
 
-export default injectIntl(({showMenu, onTouchTap, intl}) => (
+export default injectIntl(({showMenu, onTouchTap, intl, title}) => (
     <MuiAppBar
-        title={intl.formatMessage(messages.title)}
+        title={title || intl.formatMessage(messages.title)}
         showMenuIconButton={showMenu}
         iconClassNameRight="muidocs-icon-navigation-expand-more"
         onLeftIconButtonTouchTap={onTouchTap}

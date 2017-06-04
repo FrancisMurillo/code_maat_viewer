@@ -18,6 +18,7 @@ const initialState = {
     "startDate": null,
     "endDate": null,
     "fetching": false,
+    "title": null,
 
     "appStartDate": null,
     "appEndDate": null
