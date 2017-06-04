@@ -3,13 +3,18 @@ import { div } from "react-dom";
 import { Route } from "react-router";
 import { ConnectedRouter } from "react-router-redux";
 
-import { defineMessages } from "react-intl";
+import { injectIntl, defineMessages } from "react-intl";
 
 import Summary from "../summary";
-// import Revision from "./revision";
+import Revision from "../revision";
 
 
 const messages = defineMessages({
+    "notImplemented": {
+        "id": "menu.notImplemented",
+        "description": "Not Implemented message",
+        "defaultMessage": "Sorry, this feature is not implemented yet."
+    },
     "dashboard": {
         "id": "menu.dashboard",
         "description": "Dashboard menu label",
@@ -73,19 +78,18 @@ const messages = defineMessages({
     }
 });
 
+
+const NotImplemented = injectIntl(({ intl }) => (
+    <div>{intl.formatMessage(messages.notImplemented)}</div>
+));
+
 export const routes = [
     {
         "key": "dashboard",
         "path": "/",
         "exact": true,
-        "component": null
+        "component": NotImplemented
     },
-    {
-        "key": "notFound",
-        "path": "",
-        "component": null
-    },
-
     {
         "key": "summary",
         "path": "/analysis/summary",
@@ -94,48 +98,48 @@ export const routes = [
     {
         "key": "revision",
         "path": "/analysis/revision",
-        "component": null // Revision
+        "component": Revision
     },
     {
         "key": "coupling",
         "path": "/analysis/coupling",
-        "component": null
+        "component": NotImplemented
     },
     {
         "key": "age",
         "path": "/analysis/age",
-        "component": null
+        "component": NotImplemented
     },
     {
         "key": "absoluteChurn",
         "path": "/analysis/absolute-churn",
-        "component": null
+        "component": NotImplemented
     },
     {
         "key": "authorChurn",
         "path": "/analysis/author-churn",
-        "component": null
+        "component": NotImplemented
     },
     {
         "key": "entityChurn",
         "path": "/analysis/entity-churn",
-        "component": null
+        "component": NotImplemented
     },
     {
         "key": "entityOwnership",
         "path": "/analysis/entity-ownership",
-        "component": null
+        "component": NotImplemented
     },
     {
         "key": "entityEffort",
         "path": "/analysis/entity-effort",
-        "component": null
+        "component": NotImplemented
     },
 
     {
         "key": "setting",
         "path": "/analysis/setting",
-        "component": null
+        "component": NotImplemented
     }
 ].map((route) => {
     return {
@@ -149,10 +153,10 @@ export default ({ history }) => (
         history={history}
     >
         <div>
-            {routes.map((route) => (
+            {routes.map(({key, ...props}) => (
                 <Route
-                    key={route.key}
-                    {...route}
+                    key={key}
+                    {...props}
                 />
         ))}
         </div>

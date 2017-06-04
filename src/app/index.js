@@ -103,16 +103,20 @@ export default connect(
             const { pathname } = location;
             const route = routes.reduce(
                 (prev, thisRoute) => {
-                    return thisRoute.path.startsWith(pathname)
-                        ? thisRoute : prev;
+                    if (thisRoute.path) {
+                        return thisRoute.path.startsWith(pathname)
+                            ? thisRoute : prev;
+                    } else {
+                        return prev;
+                    }
                 },
                 null);
 
-            const { title } = route;
+            const routeProps = route ? { "title": route.title} : {};
 
             return {
                 ...app,
-                title
+                ...routeProps
             };
         } else {
             return {...app};
