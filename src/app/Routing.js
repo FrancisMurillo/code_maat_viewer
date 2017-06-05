@@ -7,7 +7,7 @@ import { injectIntl, defineMessages } from "react-intl";
 
 import Summary from "../summary";
 import Revision from "../revision";
-
+import Coupling from "../coupling";
 
 const messages = defineMessages({
     "notImplemented": {
@@ -103,7 +103,7 @@ export const routes = [
     {
         "key": "coupling",
         "path": "/analysis/coupling",
-        "component": NotImplemented
+        "component": Coupling
     },
     {
         "key": "age",

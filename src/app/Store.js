@@ -15,17 +15,10 @@ import appReducer, {
     featureReducer
 } from "./Reducer";
 
-import {
-    reducer as summaryReducer
-} from "../summary";
-
-import {
-    reducer as revisionReducer
-} from "../revision";
-
-import {
-    reducer as settingReducer
-} from "../setting";
+import { reducer as summaryReducer } from "../summary";
+import { reducer as revisionReducer } from "../revision";
+import { reducer as couplingReducer } from "../coupling";
+import { reducer as settingReducer } from "../setting";
 
 
 export const history = createHistory();
@@ -42,6 +35,7 @@ const reducer = combineReducers({
     "app": appReducer,
     "summary": joinReducers(summaryReducer, featureReducer),
     "revision": joinReducers(revisionReducer, featureReducer),
+    "coupling": joinReducers(couplingReducer, featureReducer),
     "setting": settingReducer,
     "router": routerReducer
 });
