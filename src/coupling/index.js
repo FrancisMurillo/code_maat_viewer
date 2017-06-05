@@ -41,7 +41,7 @@ const messages = defineMessages({
         "id": "coupling.averageRevisions",
         "description": "Average Revisions field label",
         "defaultMessage": "Average Revisions"
-    },
+    }
 });
 
 const fieldMessageMapping = {
