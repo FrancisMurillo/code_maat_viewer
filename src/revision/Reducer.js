@@ -8,11 +8,22 @@ const initialState = {
 };
 
 export default handleActions({
-    [fetchData]: (state, action) => ({
-        ...state,
-        "data": action.payload,
-        "fetching": false
-    }),
+    [fetchData]: (state, action) => {
+        if (action.meta === "fetching") {
+            return {
+                ...state,
+                "fetching": true
+            };
+        } else if (action.error === true) {
+            return state;
+        } else {
+            return {
+                ...state,
+                "data": action.payload,
+                "fetching": false
+            };
+        }
+    },
     [markFetching]: (state, _action) => ({
         ...state,
         "fetching": true

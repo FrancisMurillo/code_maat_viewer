@@ -1,9 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import { div } from "react-dom";
 
 import { connect } from "react-redux";
 
 import { injectIntl, defineMessages } from "react-intl";
+
+import { DataPage } from "../shared";
 
 import Header from "./Header";
 import SideMenu from "./SideMenu";
@@ -12,12 +14,11 @@ import Provider from "./Provider";
 
 import {
     toggleSideMenu,
-    fetchCommitData
+    fetchCommits
 } from "./Action";
 
-import store, {
-    history
-} from "./Store";
+import store from "./Store";
+import {history} from "./Middleware";
 
 import Router, { routes } from "./Routing";
 
@@ -29,69 +30,51 @@ const messages = defineMessages({
     }
 });
 
-export const Frame = injectIntl(class Frame extends Component {
-    componentDidMount() {
-        const {
-            commitData,
-            fetching,
-            requestData
-        } = this.props;
+const Loading = () => (
+    <div>
+        <Header
+            showMenu={false}
+        />
+    </div>
+);
 
-        if (commitData === null && !fetching) {
-            requestData();
-        }
-    }
+const Empty = injectIntl(({intl}) => (
+    <div>
+        <Header
+            showMenu={false}
+        />
+        <div>{intl.formatMessage(messages.noCommit)}</div>
+    </div>
+));
 
-    render() {
-        const {
-            intl,
-            open,
-            title,
-            onRequestChange,
-            onTouchTap,
-            commitData,
-            fetching
-        } = this.props;
+export const Frame = injectIntl(DataPage((props) => {
+    const {
+        intl,
+        open,
+        title,
+        onRequestChange,
+        onTouchTap
+    } = props;
 
-        if (commitData === null || fetching) {
-            return (
-                <div>
-                    <Header
-                        showMenu={false}
-                    />
-                </div>
-            );
-        } else if (commitData.length) {
-            return (
-                <div>
-                    <SideMenu
-                        onRequestChange={onRequestChange}
-                        open={open}
-                    />
-                    <Header
-                        showMenu
-                        title={title ? intl.formatMessage(title) : null}
-                        onTouchTap={onTouchTap}
-                    />
-                    <Toolbar />
-                    <Router
-                        history={history}
-                    />
-                </div>
-            );
-        } else {
-            return (
-                <div>
-                    <Header
-                        showMenu={false}
-                    />
-                    <div>{intl.formatMessage(messages.noCommit)}</div>
-                </div>
-            );
-        }
+    return (
+        <div>
+            <SideMenu
+                onRequestChange={onRequestChange}
+                open={open}
+            />
+            <Header
+                showMenu
+                title={title ? intl.formatMessage(title) : null}
+                onTouchTap={onTouchTap}
+            />
+            <Toolbar />
+            <Router
+                history={history}
+            />
+        </div>
+    );
+}));
 
-    }
-});
 
 export {
     store,
@@ -132,6 +115,13 @@ export default connect(
     {
         "onTouchTap": toggleSideMenu,
         "onRequestChange": toggleSideMenu,
-        "requestData": fetchCommitData
-    }
+        "requestData": fetchCommits
+    },
+    (stateProps, dispatchProps, ownProps) => ({
+        ...stateProps,
+        ...dispatchProps,
+        ...ownProps,
+        Loading,
+        Empty
+    })
 )(Frame);

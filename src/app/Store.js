@@ -1,37 +1,23 @@
-import { applyMiddleware, createStore, combineReducers } from "redux";
-
-import logger from "redux-logger";
-
-import thunk from "redux-thunk";
-
-import promiseMiddleware from "redux-promise";
-
-import { routerReducer, routerMiddleware } from "react-router-redux";
-import createHistory from "history/createBrowserHistory";
-
-
-import appReducer, {
-    joinReducers,
-    featureReducer
-} from "./Reducer";
+import { compose, combineReducers, createStore } from "redux";
+import { persistStore, autoRehydrate } from "redux-persist";
+import { routerReducer } from "react-router-redux";
 
 import { reducer as summaryReducer } from "../summary";
 import { reducer as revisionReducer } from "../revision";
 import { reducer as couplingReducer } from "../coupling";
 import { reducer as settingReducer } from "../setting";
 
+import middleware from "./Middleware";
 
-export const history = createHistory();
+import appReducer, {
+    joinReducers,
+    featureReducer,
+    persistenceReducer
+} from "./Reducer";
 
-
-const middleware = applyMiddleware(
-    thunk,
-    promiseMiddleware,
-    routerMiddleware(history),
-    logger
-);
 
 const reducer = combineReducers({
+    "persistence": persistenceReducer,
     "app": appReducer,
     "summary": joinReducers(summaryReducer, featureReducer),
     "revision": joinReducers(revisionReducer, featureReducer),
@@ -40,4 +26,11 @@ const reducer = combineReducers({
     "router": routerReducer
 });
 
-export default createStore(reducer, middleware);
+const store = createStore(
+    reducer,
+    compose(middleware, autoRehydrate({"log": true})));
+
+persistStore(store, {"blacklist": ["persistence"]});
+
+
+export default store;

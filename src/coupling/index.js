@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { div } from "react-dom";
 
 import { injectIntl, defineMessages } from "react-intl";
 
@@ -9,8 +8,6 @@ import {Tabs, Tab} from "material-ui/Tabs";
 
 import reducer from "./Reducer";
 import { fetchCouplingData } from "./Action";
-
-import { RecordTable } from "../shared";
 
 export {
     reducer
@@ -75,13 +72,7 @@ export const Page = injectIntl(class Page extends Component {
             <Tabs>
                 <Tab
                     label={intl.formatMessage(messages.record)}
-                >
-                    <RecordTable
-                        data={data}
-                        headerMapping={fieldMessageMapping}
-                        headerLabels={messages}
-                    />
-                </Tab>
+                />
             </Tabs>
         );
     }

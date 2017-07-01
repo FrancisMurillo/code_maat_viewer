@@ -1,9 +1,12 @@
 import { handleActions } from "redux-actions";
 
+import { REHYDRATE } from "redux-persist/constants";
+
+import { dataRequestInitialState } from "../shared";
+
 import {
     toggleSideMenu,
     fetchCommits,
-    markFetching,
     changeStartDate,
     changeEndDate,
     clearDates,
@@ -12,16 +15,15 @@ import {
 
 const initialState = {
     "open": false,
-    "commitData": null,
     "minDate": null,
     "maxDate": null,
     "startDate": null,
     "endDate": null,
-    "fetching": false,
     "title": null,
 
     "appStartDate": null,
-    "appEndDate": null
+    "appEndDate": null,
+    ...dataRequestInitialState
 };
 
 const maxBy = (f, xs) => (xs.reduceRight((prev, x) => {
@@ -47,23 +49,30 @@ export const reducer = handleActions({
         "open": !state.open
     }),
 
-    [markFetching]: (state, _action) => ({
-        ...state,
-        "fetching": true
-    }),
-
     [fetchCommits]: (state, action) => {
-        const commits = action.payload;
-        const dates = commits.map(({commitDate}) => commitDate);
-        const identity = (x) => x;
+        if (action.error === true) {
+            return {
+                ...state,
+                "fetching": false
+            };
+        } else if (action.meta === "fetching") {
+            return {
+                ...state,
+                "fetching": true
+            };
+        } else {
+            const commits = action.payload;
+            const dates = commits.map(({commitDate}) => commitDate);
+            const identity = (x) => x;
 
-        return {
-            ...state,
-            "fetching": false,
-            "commitData": action.payload,
-            "minDate": minBy(identity, dates),
-            "maxDate": maxBy(identity, dates)
-        };
+            return {
+                ...state,
+                "fetching": false,
+                "data": action.payload,
+                "minDate": minBy(identity, dates),
+                "maxDate": maxBy(identity, dates)
+            };
+        }
     },
 
     [changeStartDate]: (state, action) => ({
@@ -96,6 +105,10 @@ export const actionReducer = handleActions({
         "fetching": false
     })
 }, initialState);
+
+export const persistenceReducer = handleActions(
+    {[REHYDRATE]: (_state, _action) => true},
+    false);
 
 export const featureReducer = joinReducers(actionReducer);
 

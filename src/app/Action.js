@@ -3,24 +3,17 @@ import { createAction } from "redux-actions";
 import { WebService } from "../api";
 
 
-export const toggleSideMenu = createAction("TOGGLE_SIDE_MENU");
-
-export const markFetching = createAction("MARK_FETCHING_APP_DATA");
+export const toggleSideMenu = createAction("APP/TOGGLE_SIDE_MENU");
 
 export const fetchCommits = createAction(
-    "FETCH_REPO_COMMITS",
-     WebService.getCommits.bind(WebService));
-
-export const fetchCommitData = () => (dispatch) => {
-    dispatch(markFetching());
-    dispatch(fetchCommits());
-};
+    "APP/FETCH_COMMITS",
+    WebService.getCommits);
 
 
 const secondArg = (_first, second) => second;
 
-export const changeStartDate = createAction("CHANGE_START_DATE", secondArg);
-export const changeEndDate = createAction("CHANGE_END_DATE", secondArg);
+export const changeStartDate = createAction("APP/CHANGE_START_DATE", secondArg);
+export const changeEndDate = createAction("APP/CHANGE_END_DATE", secondArg);
 
-export const clearDates = createAction("CLEAR_DATES");
-export const refreshData = createAction("REFRESH_DATA");
+export const clearDates = createAction("APP/CLEAR_DATES");
+export const refreshData = createAction("APP/REFRESH_DATA");
