@@ -13,6 +13,7 @@ import {
     DataPage,
     DataGrid,
     ColumnType,
+    messages as sharedMessages,
     createDataRequestAction,
     createDataSortAction,
     createDataFilterAction,
@@ -25,14 +26,6 @@ import {
     handleDataGridReducer
 } from "../shared";
 
-
-const messages = defineMessages({
-    "record": {
-        "id": "revision.record",
-        "description": "Record Table tab label",
-        "defaultMessage": "Records"
-    }
-});
 
 const columns = [
     {"key": "entity"},
@@ -49,7 +42,7 @@ export const Revision = injectIntl(DataPage((props) => {
     return (
         <Tabs>
             <Tab
-                label={intl.formatMessage(messages.record)}
+                label={intl.formatMessage(sharedMessages.record)}
             >
                 <DataGrid
                     columns={columns}

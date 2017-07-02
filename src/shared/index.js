@@ -16,11 +16,13 @@ import DataGrid, {
 } from "./DataGrid";
 
 import columnMessages from "./ColumnMessage";
+import messages from "./Message";
 
 export {
     DataPage,
     DataGrid,
     ColumnType,
+    messages,
     columnMessages,
 
     dataRequestAction,
