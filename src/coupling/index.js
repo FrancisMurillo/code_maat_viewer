@@ -1,91 +1,104 @@
-import React, { Component } from "react";
-
+import React from "react";
 import { injectIntl, defineMessages } from "react-intl";
 
+import { compose } from "redux";
+import { handleActions } from "redux-actions";
 import { connect } from "react-redux";
 
 import {Tabs, Tab} from "material-ui/Tabs";
 
-import reducer from "./Reducer";
-import { fetchCouplingData } from "./Action";
+import { WebService, AnalysisMethod } from "../api";
 
-export {
-    reducer
-};
+import {
+    DataPage,
+    DataGrid,
+    ColumnType,
+    createDataRequestAction,
+    createDataSortAction,
+    createDataFilterAction,
+    dataGridInitialState,
+    dataRequestInitialState,
+    dataRequestAction,
+    dataSortAction,
+    dataFilterAction,
+    handleDataRequestReducer,
+    handleDataGridReducer
+} from "../shared";
+
 
 const messages = defineMessages({
     "record": {
-        "id": "coupling.record",
+        "id": "revision.record",
         "description": "Record Table tab label",
         "defaultMessage": "Records"
-    },
-    "entity": {
-        "id": "coupling.entity",
-        "description": "Entity field label",
-        "defaultMessage": "Entity"
-    },
-    "coupled": {
-        "id": "coupling.coupled",
-        "description": "Coupled field label",
-        "defaultMessage": "Coupled"
-    },
-    "degree": {
-        "id": "coupling.degree",
-        "description": "Degree field label",
-        "defaultMessage": "Degree"
-    },
-    "averageRevisions": {
-        "id": "coupling.averageRevisions",
-        "description": "Average Revisions field label",
-        "defaultMessage": "Average Revisions"
     }
 });
 
-const fieldMessageMapping = {
-    "entity": "entity",
-    "coupled": "coupled",
-    "average-revs": "averageRevisions",
-    "degree": "degree"
+const columns = [
+    {"key": "entity"},
+    {"key": "coupled"},
+    {
+        "key": "degree",
+        "mapper": ColumnType.integer
+    },
+    {
+        "key": "averageRevs",
+        "mapper": ColumnType.integer
+    }
+];
+
+
+export const Coupling = injectIntl(DataPage((props) => {
+    const {intl} = props;
+
+    return (
+        <Tabs>
+            <Tab
+                label={intl.formatMessage(messages.record)}
+            >
+                <DataGrid
+                    columns={columns}
+                    {...props}
+                />
+            </Tab>
+        </Tabs>
+    );
+}));
+
+
+export const fetchData = createDataRequestAction(
+    "COUPLING/FETCH_ANALYSIS",
+    WebService.prepareAnalysisRequest(AnalysisMethod.coupling));
+
+export const sortRecords = createDataSortAction("COUPLING/SORT_RECORDS");
+
+export const filterRecords = createDataFilterAction("COUPLING/FILTER_RECORDS");
+
+
+const initialState = {
+    ...dataRequestInitialState,
+    ...dataGridInitialState
 };
 
-
-export const Page = injectIntl(class Page extends Component {
-    componentDidUpdate() {
-        const {
-            data,
-            fetching,
-            requestData
-        } = this.props;
-
-        if (data === null && !fetching) {
-            requestData();
-        }
-    }
-
-    render() {
-        const {
-            intl,
-            data
-        } = this.props;
-
-        return (
-            <Tabs>
-                <Tab
-                    label={intl.formatMessage(messages.record)}
-                />
-            </Tabs>
-        );
-    }
-});
+export const reducer = compose(
+    handleDataGridReducer,
+    handleDataRequestReducer
+)(handleActions({
+    [fetchData]: (_state, _action) => dataRequestAction,
+    [sortRecords]: (_state, _action) => dataSortAction,
+    [filterRecords]: (_state, _action) => dataFilterAction
+}, initialState));
 
 
 export default connect(
-    ({ coupling }) => coupling,
+    (state) => state.coupling,
     {
-        "requestData": () => (dispatch, getState) => {
+        "onRequestData": () => (dispatch, getState) => {
             const { "app": { appStartDate, appEndDate }} = getState();
 
-            dispatch(fetchCouplingData(appStartDate, appEndDate));
-        }
+            dispatch(fetchData(appStartDate, appEndDate));
+        },
+        "onSortRecords": sortRecords,
+        "onChangeFilters": filterRecords
     }
-)(Page);
+)(Coupling);

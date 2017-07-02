@@ -21,5 +21,20 @@ export default defineMessages({
         "id": "column.numberOfRevisions",
         "description": "Column label for Number of Revisions",
         "defaultMessage": "Number of Revisions"
+    },
+    "coupled": {
+        "id": "column.coupled",
+        "description": "Column label for Coupled",
+        "defaultMessage": "Coupled"
+    },
+    "degree": {
+        "id": "column.degree",
+        "description": "Column label for Degree",
+        "defaultMessage": "Degree"
+    },
+    "averageRevs": {
+        "id": "column.averageRevisions",
+        "description": "Column label for Average Revisions",
+        "defaultMessage": "Average Revisions"
     }
 });

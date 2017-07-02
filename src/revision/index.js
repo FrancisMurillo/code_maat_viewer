@@ -62,7 +62,7 @@ export const Revision = injectIntl(DataPage((props) => {
 
 
 export const fetchData = createDataRequestAction(
-    "REVISION/FETCH_REVISION_ANALYSIS",
+    "REVISION/FETCH_ANALYSIS",
     WebService.prepareAnalysisRequest(AnalysisMethod.revision));
 
 export const sortRecords = createDataSortAction("REVISION/SORT_RECORDS");
@@ -86,7 +86,7 @@ export const reducer = compose(
 
 
 export default connect(
-    ({ revision }) => revision,
+    (state) => state.revision,
     {
         "onRequestData": () => (dispatch, getState) => {
             const { "app": { appStartDate, appEndDate }} = getState();

@@ -42,7 +42,7 @@ export const Summary = DataPage((props) => {
 });
 
 export const fetchData = createDataRequestAction(
-    "SUMMARY/FETCH_SUMMARY_ANALYSIS",
+    "SUMMARY/FETCH_ANALYSIS",
     WebService.prepareAnalysisRequest(AnalysisMethod.summary));
 
 export const sortRecords = createDataSortAction("SUMMARY/SORT_RECORDS");
@@ -66,7 +66,7 @@ export const reducer = compose(
 
 
 export default connect(
-    ({ summary }) => summary,
+    (state) => state.summary,
     {
         "onRequestData": () => (dispatch, getState) => {
             const { "app": { appStartDate, appEndDate }} = getState();
