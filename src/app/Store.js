@@ -17,13 +17,13 @@ import appReducer, {
 
 
 const reducer = combineReducers({
-    "persistence": persistenceReducer,
     "app": appReducer,
     "summary": joinReducers(summaryReducer, featureReducer),
     "revision": joinReducers(revisionReducer, featureReducer),
     "coupling": joinReducers(couplingReducer, featureReducer),
     "setting": settingReducer,
-    "router": routerReducer
+    "router": routerReducer,
+    "persistence": persistenceReducer
 });
 
 const store = createStore(

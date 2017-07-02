@@ -1,10 +1,9 @@
 import React from "react";
 
 import { compose } from "redux";
-import { createAction, handleActions } from "redux-actions";
+import { handleActions } from "redux-actions";
 
 import { connect } from "react-redux";
-
 
 import { WebService, AnalysisMethod } from "../api";
 

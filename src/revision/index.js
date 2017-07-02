@@ -1,9 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import { injectIntl, defineMessages } from "react-intl";
 
-
 import { compose } from "redux";
-import { createAction, handleActions } from "redux-actions";
+import { handleActions } from "redux-actions";
 import { connect } from "react-redux";
 
 import {Tabs, Tab} from "material-ui/Tabs";
