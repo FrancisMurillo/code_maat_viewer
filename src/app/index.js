@@ -115,7 +115,7 @@ export default connect(
     {
         "onTouchTap": toggleSideMenu,
         "onRequestChange": toggleSideMenu,
-        "requestData": fetchCommits
+        "onRequestData": fetchCommits
     },
     (stateProps, dispatchProps, ownProps) => ({
         ...stateProps,

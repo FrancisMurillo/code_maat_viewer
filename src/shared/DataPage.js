@@ -69,11 +69,11 @@ export default (Component) => {
             const {
                 data,
                 fetching,
-                requestData
+                onRequestData
             } = this.props;
 
             if (data === null && !fetching) {
-                requestData();
+                onRequestData();
             }
         }
 

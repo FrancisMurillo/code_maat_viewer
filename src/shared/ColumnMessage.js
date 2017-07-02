@@ -10,5 +10,16 @@ export default defineMessages({
         "id": "column.value",
         "description": "Column label for value",
         "defaultMessage": "Value"
+    },
+
+    "entity": {
+        "id": "column.entity",
+        "description": "Column label for entity",
+        "defaultMessage": "Entity"
+    },
+    "nRevs": {
+        "id": "column.numberOfRevisions",
+        "description": "Column label for Number of Revisions",
+        "defaultMessage": "Number of Revisions"
     }
 });

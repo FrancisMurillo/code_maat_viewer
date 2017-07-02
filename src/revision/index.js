@@ -1,78 +1,96 @@
 import React, { Component } from "react";
 import { injectIntl, defineMessages } from "react-intl";
 
+
+import { compose } from "redux";
+import { createAction, handleActions } from "redux-actions";
 import { connect } from "react-redux";
 
 import {Tabs, Tab} from "material-ui/Tabs";
 
-import reducer from "./Reducer";
-import { fetchRevisionData } from "./Action";
+import { WebService, AnalysisMethod } from "../api";
 
-export {
-    reducer
-};
+import {
+    DataPage,
+    DataGrid,
+    createDataRequestAction,
+    createDataSortAction,
+    createDataFilterAction,
+    dataGridInitialState,
+    dataRequestInitialState,
+    dataRequestAction,
+    dataSortAction,
+    dataFilterAction,
+    handleDataRequestReducer,
+    handleDataGridReducer
+} from "../shared";
+
 
 const messages = defineMessages({
     "record": {
         "id": "revision.record",
         "description": "Record Table tab label",
         "defaultMessage": "Records"
-    },
-    "entity": {
-        "id": "revision.entity",
-        "description": "Entity field label",
-        "defaultMessage": "Entity"
-    },
-    "numberOfRevisions": {
-        "id": "revision.numberOfRevisions",
-        "description": "Number of Revisions field label",
-        "defaultMessage": "Number of Revisions"
     }
 });
 
-const fieldMessageMapping = {
-    "entity": "entity",
-    "n-revs": "numberOfRevisions"
+const columns = [
+    {"key": "entity"},
+    {"key": "nRevs"}
+];
+
+
+export const Revision = injectIntl(DataPage((props) => {
+    const {intl} = props;
+
+    return (
+        <Tabs>
+            <Tab
+                label={intl.formatMessage(messages.record)}
+            >
+                <DataGrid
+                    columns={columns}
+                    {...props}
+                />
+            </Tab>
+        </Tabs>
+    );
+}));
+
+
+export const fetchData = createDataRequestAction(
+    "REVISION/FETCH_REVISION_ANALYSIS",
+    WebService.prepareAnalysisRequest(AnalysisMethod.revision));
+
+export const sortRecords = createDataSortAction("REVISION/SORT_RECORDS");
+
+export const filterRecords = createDataFilterAction("REVISION/FILTER_RECORDS");
+
+
+const initialState = {
+    ...dataRequestInitialState,
+    ...dataGridInitialState
 };
 
-
-export const Page = injectIntl(class Page extends Component {
-    componentDidUpdate() {
-        const {
-            data,
-            fetching,
-            requestData
-        } = this.props;
-
-        if (data === null && !fetching) {
-            requestData();
-        }
-    }
-
-    render() {
-        const {
-            intl,
-            data
-        } = this.props;
-
-        return (
-            <Tabs>
-                <Tab
-                    label={intl.formatMessage(messages.record)}
-                />
-            </Tabs>
-        );
-    }
-});
+export const reducer = compose(
+    handleDataGridReducer,
+    handleDataRequestReducer
+)(handleActions({
+    [fetchData]: (_state, _action) => dataRequestAction,
+    [sortRecords]: (_state, _action) => dataSortAction,
+    [filterRecords]: (_state, _action) => dataFilterAction
+}, initialState));
 
 
 export default connect(
     ({ revision }) => revision,
     {
-        "requestData": () => (dispatch, getState) => {
+        "onRequestData": () => (dispatch, getState) => {
             const { "app": { appStartDate, appEndDate }} = getState();
 
-            dispatch(fetchRevisionData(appStartDate, appEndDate));
-        }
+            dispatch(fetchData(appStartDate, appEndDate));
+        },
+        "onSortRecords": sortRecords,
+        "onChangeFilters": filterRecords
     }
-)(Page);
+)(Revision);

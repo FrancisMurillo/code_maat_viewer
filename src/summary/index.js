@@ -38,9 +38,9 @@ export const Summary = DataPage((props) => {
     );
 });
 
-export const fetchAnalysisData = createDataRequestAction(
+export const fetchData = createDataRequestAction(
     "SUMMARY/FETCH_SUMMARY_ANALYSIS",
-    WebService.prepareAnalysisRequest(AnalysisMethod.SUMMARY));
+    WebService.prepareAnalysisRequest(AnalysisMethod.summary));
 
 export const sortRecords = createDataSortAction("SUMMARY/SORT_RECORDS");
 
@@ -56,7 +56,7 @@ export const reducer = compose(
     handleDataGridReducer,
     handleDataRequestReducer
 )(handleActions({
-    [fetchAnalysisData]: (_state, _action) => dataRequestAction,
+    [fetchData]: (_state, _action) => dataRequestAction,
     [sortRecords]: (_state, _action) => dataSortAction,
     [filterRecords]: (_state, _action) => dataFilterAction
 }, initialState));
@@ -65,10 +65,10 @@ export const reducer = compose(
 export default connect(
     ({ summary }) => summary,
     {
-        "requestData": () => (dispatch, getState) => {
+        "onRequestData": () => (dispatch, getState) => {
             const { "app": { appStartDate, appEndDate }} = getState();
 
-            dispatch(fetchAnalysisData(appStartDate, appEndDate));
+            dispatch(fetchData(appStartDate, appEndDate));
         },
         "onSortRecords": sortRecords,
         "onChangeFilters": filterRecords
