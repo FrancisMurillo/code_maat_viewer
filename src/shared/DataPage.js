@@ -77,6 +77,11 @@ export default (Component) => {
             }
         }
 
+        componentDidUpdate() {
+            this.componentDidMount();
+        }
+
+
         render() {
             const {
                 data,

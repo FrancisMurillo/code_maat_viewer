@@ -1,11 +1,13 @@
 import React from "react";
-import { injectIntl } from "react-intl";
+import { injectIntl, defineMessages } from "react-intl";
 
 import { compose } from "redux";
 import { handleActions } from "redux-actions";
 import { connect } from "react-redux";
 
 import {Tabs, Tab} from "material-ui/Tabs";
+
+import Chart from "d3act/lib/components/Chart";
 
 import { WebService, AnalysisMethod } from "../api";
 
@@ -43,6 +45,14 @@ const columns = [
 ];
 
 
+const messages = defineMessages({
+    "chart": {
+        "id": "tab.chart",
+        "description": "Tab label for Chart",
+        "defaultMessage": "Chart"
+    }
+});
+
 export const AbsoluteChurn = injectIntl(DataPage((props) => {
     const {intl} = props;
 
@@ -54,6 +64,28 @@ export const AbsoluteChurn = injectIntl(DataPage((props) => {
                 <DataGrid
                     columns={columns}
                     {...props}
+                />
+            </Tab>
+            <Tab
+                label={intl.formatMessage(messages.chart)}
+            >
+                <Chart
+                    type={"bar"}
+                    width={500}
+                    height={500}
+                    margin={{
+                        "top": 40,
+                        "right": 40,
+                        "bottom": 40,
+                        "left": 40
+                    }}
+                    showTooltips
+                    data={props.data.map((record) => {
+                        return {
+                            "xValue": record.date,
+                            "yValue": parseInt(record.commits, 10)
+                        };
+                    })}
                 />
             </Tab>
         </Tabs>
