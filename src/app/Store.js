@@ -7,6 +7,7 @@ import { reducer as revisionReducer } from "../revision";
 import { reducer as couplingReducer } from "../coupling";
 import { reducer as ageReducer } from "../age";
 import { reducer as absoluteChurnReducer } from "../absoluteChurn";
+import { reducer as authorChurnReducer } from "../authorChurn";
 import { reducer as settingReducer } from "../setting";
 
 import middleware from "./Middleware";
@@ -25,6 +26,7 @@ const reducer = combineReducers({
     "coupling": joinReducers(couplingReducer, featureReducer),
     "age": joinReducers(ageReducer, featureReducer),
     "absoluteChurn": joinReducers(absoluteChurnReducer, featureReducer),
+    "authorChurn": joinReducers(authorChurnReducer, featureReducer),
     "setting": settingReducer,
     "router": routerReducer,
     "persistence": persistenceReducer

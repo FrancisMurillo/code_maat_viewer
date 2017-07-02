@@ -4,8 +4,8 @@ export default {
     "coupling": "coupling",
     "age": "age",
     "absoluteChurn": "abs-churn",
-    "authorChurn": "author_churn",
-    "entityChurn": "entity_churn",
+    "authorChurn": "author-churn",
+    "entityChurn": "entity-churn",
     "entityOwnership": "entity-ownership",
     "entityEffort": "entity-effort"
 };

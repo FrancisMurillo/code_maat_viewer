@@ -27,7 +27,7 @@ import {
 } from "../shared";
 
 const columns = [
-    {"key": "date"},
+    {"key": "author"},
     {
         "key": "commits",
         "mapper": ColumnType.integer
@@ -43,7 +43,7 @@ const columns = [
 ];
 
 
-export const AbsoluteChurn = injectIntl(DataPage((props) => {
+export const AuthorChurn = injectIntl(DataPage((props) => {
     const {intl} = props;
 
     return (
@@ -62,13 +62,13 @@ export const AbsoluteChurn = injectIntl(DataPage((props) => {
 
 
 export const fetchData = createDataRequestAction(
-    "ABSOLUTE_CHURN/FETCH_ANALYSIS",
-    WebService.prepareAnalysisRequest(AnalysisMethod.absoluteChurn));
+    "AUTHOR_CHURN/FETCH_ANALYSIS",
+    WebService.prepareAnalysisRequest(AnalysisMethod.authorChurn));
 
-export const sortRecords = createDataSortAction("ABSOLUTE_CHURN/SORT_RECORDS");
+export const sortRecords = createDataSortAction("AUTHOR_CHURN/SORT_RECORDS");
 
 export const filterRecords = createDataFilterAction(
-    "ABSOLUTE_CHURN/FILTER_RECORDS");
+    "AUTHOR_CHURN/FILTER_RECORDS");
 
 
 const initialState = {
@@ -87,7 +87,7 @@ export const reducer = compose(
 
 
 export default connect(
-    (state) => state.absoluteChurn,
+    (state) => state.authorChurn,
     {
         "onRequestData": () => (dispatch, getState) => {
             const { "app": { appStartDate, appEndDate }} = getState();
@@ -97,4 +97,4 @@ export default connect(
         "onSortRecords": sortRecords,
         "onChangeFilters": filterRecords
     }
-)(AbsoluteChurn);
+)(AuthorChurn);

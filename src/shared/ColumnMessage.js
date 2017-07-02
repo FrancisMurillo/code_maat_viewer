@@ -61,5 +61,10 @@ export default defineMessages({
         "id": "column.deleted",
         "description": "Column label for Deleted",
         "defaultMessage": "Deleted"
+    },
+    "author": {
+        "id": "column.author",
+        "description": "Column label for Author",
+        "defaultMessage": "Author"
     }
 });
