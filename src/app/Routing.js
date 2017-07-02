@@ -11,6 +11,7 @@ import Coupling from "../coupling";
 import Age from "../age";
 import AbsoluteChurn from "../absoluteChurn";
 import AuthorChurn from "../authorChurn";
+import EntityChurn from "../entityChurn";
 
 const messages = defineMessages({
     "notImplemented": {
@@ -126,7 +127,7 @@ export const routes = [
     {
         "key": "entityChurn",
         "path": "/analysis/entity-churn",
-        "component": NotImplemented
+        "component": EntityChurn
     },
     {
         "key": "entityOwnership",
