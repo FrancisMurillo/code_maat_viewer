@@ -35,11 +35,11 @@ const optimisticPromiseMiddleware = (store) => (next) => (action) => {
     }
 };
 
-export default composeWithDevTools(applyMiddleware(
+export default applyMiddleware(
     thunkFsaMiddleware,
     thunkMiddleware,
     optimisticPromiseMiddleware,
     promiseMiddleware,
     routerMiddleware(history),
     loggerMiddleware
-));
+);

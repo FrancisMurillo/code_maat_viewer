@@ -40,6 +40,7 @@ const reducer = combineReducers({
 
 const store = createStore(
     reducer,
+    undefined,
     compose(middleware, autoRehydrate({"log": true})));
 
 persistStore(store, {"blacklist": ["persistence"]});
