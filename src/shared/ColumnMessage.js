@@ -41,5 +41,25 @@ export default defineMessages({
         "id": "column.ageMonths",
         "description": "Column label for Age Months",
         "defaultMessage": "Age"
+    },
+    "added": {
+        "id": "column.added",
+        "description": "Column label for Added",
+        "defaultMessage": "Added"
+    },
+    "commits": {
+        "id": "column.commits",
+        "description": "Column label for Commits",
+        "defaultMessage": "Commits"
+    },
+    "date": {
+        "id": "column.date",
+        "description": "Column label for Date",
+        "defaultMessage": "Date"
+    },
+    "deleted": {
+        "id": "column.deleted",
+        "description": "Column label for Deleted",
+        "defaultMessage": "Deleted"
     }
 });

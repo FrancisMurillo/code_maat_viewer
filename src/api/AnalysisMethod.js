@@ -3,7 +3,7 @@ export default {
     "revision": "revision",
     "coupling": "coupling",
     "age": "age",
-    "absChurn": "abs-churn",
+    "absoluteChurn": "abs-churn",
     "authorChurn": "author_churn",
     "entityChurn": "entity_churn",
     "entityOwnership": "entity-ownership",

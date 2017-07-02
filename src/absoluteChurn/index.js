@@ -27,15 +27,14 @@ import {
 } from "../shared";
 
 const columns = [
-    {"key": "entity"},
-    {
-        "key": "ageMonths",
-        "mapper": ColumnType.integer
-    }
+    {"key": "date"},
+    {"key": "commits"},
+    {"key": "added"},
+    {"key": "deleted"}
 ];
 
 
-export const Age = injectIntl(DataPage((props) => {
+export const AbsoluteChurn = injectIntl(DataPage((props) => {
     const {intl} = props;
 
     return (
@@ -54,12 +53,13 @@ export const Age = injectIntl(DataPage((props) => {
 
 
 export const fetchData = createDataRequestAction(
-    "AGE/FETCH_ANALYSIS",
-    WebService.prepareAnalysisRequest(AnalysisMethod.age));
+    "ABSOLUTE_CHURN/FETCH_ANALYSIS",
+    WebService.prepareAnalysisRequest(AnalysisMethod.absoluteChurn));
 
-export const sortRecords = createDataSortAction("AGE/SORT_RECORDS");
+export const sortRecords = createDataSortAction("ABSOLUTE_CHURN/SORT_RECORDS");
 
-export const filterRecords = createDataFilterAction("AGE/FILTER_RECORDS");
+export const filterRecords = createDataFilterAction(
+    "ABSOLUTE_CHURN/FILTER_RECORDS");
 
 
 const initialState = {
@@ -78,7 +78,7 @@ export const reducer = compose(
 
 
 export default connect(
-    (state) => state.age,
+    (state) => state.absoluteChurn,
     {
         "onRequestData": () => (dispatch, getState) => {
             const { "app": { appStartDate, appEndDate }} = getState();
@@ -88,4 +88,4 @@ export default connect(
         "onSortRecords": sortRecords,
         "onChangeFilters": filterRecords
     }
-)(Age);
+)(AbsoluteChurn);
