@@ -10,6 +10,7 @@ import { WebService, AnalysisMethod } from "../api";
 import {
     DataPage,
     DataGrid,
+    ColumnType,
     createDataRequestAction,
     createDataSortAction,
     createDataFilterAction,
@@ -25,7 +26,10 @@ import {
 
 const columns = [
     {"key": "statistic"},
-    {"key": "value"}
+    {
+        "key": "value",
+        "mapper": ColumnType.integer
+    }
 ];
 
 export const Summary = DataPage((props) => {

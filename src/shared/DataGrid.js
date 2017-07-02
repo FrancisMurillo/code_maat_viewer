@@ -112,6 +112,33 @@ const normalizeRecordKeys = (normalizer) => (records) => {
     });
 };
 
+export const ColumnType = {"integer": "integer"};
+
+const mapRecords = (columnModels) => (records) => {
+    return records.map((record) => {
+        const newRecord = Object.create(null);
+
+        columnModels.forEach(({key, mapper}) => {
+            const value = record[key];
+
+            if (typeof mapper === "function") {
+                newRecord[key] = parseInt(value, 10);
+            } else {
+                switch (mapper) {
+                case ColumnType.integer:
+                    newRecord[key] = parseInt(value, 10);
+                    break;
+                default:
+                    newRecord[key] = value;
+                    break;
+                }
+            }
+        });
+
+        return newRecord;
+    });
+};
+
 export default injectIntl(({
     intl,
     data,
@@ -139,6 +166,7 @@ export default injectIntl(({
     const rows = compose(
         sortRecordsByColumn(sortColumn, sortDirection),
         filterRecords(filters),
+        mapRecords(columns),
         normalizeRecordKeys(namingNormalizer)
     )(data);
 

@@ -6,6 +6,7 @@ import DataPage, {
 } from "./DataPage";
 
 import DataGrid, {
+    ColumnType,
     dataSortAction,
     dataFilterAction,
     createDataSortAction,
@@ -19,6 +20,7 @@ import columnMessages from "./ColumnMessage";
 export {
     DataPage,
     DataGrid,
+    ColumnType,
     columnMessages,
 
     dataRequestAction,

@@ -12,6 +12,7 @@ import { WebService, AnalysisMethod } from "../api";
 import {
     DataPage,
     DataGrid,
+    ColumnType,
     createDataRequestAction,
     createDataSortAction,
     createDataFilterAction,
@@ -35,7 +36,10 @@ const messages = defineMessages({
 
 const columns = [
     {"key": "entity"},
-    {"key": "nRevs"}
+    {
+        "key": "nRevs",
+        "mapper": ColumnType.integer
+    }
 ];
 
 
