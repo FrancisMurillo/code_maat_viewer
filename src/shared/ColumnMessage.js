@@ -36,5 +36,10 @@ export default defineMessages({
         "id": "column.averageRevisions",
         "description": "Column label for Average Revisions",
         "defaultMessage": "Average Revisions"
+    },
+    "ageMonths": {
+        "id": "column.ageMonths",
+        "description": "Column label for Age Months",
+        "defaultMessage": "Age"
     }
 });

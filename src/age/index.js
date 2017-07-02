@@ -1,3 +1,4 @@
+
 import React from "react";
 import { injectIntl } from "react-intl";
 
@@ -26,17 +27,16 @@ import {
     handleDataGridReducer
 } from "../shared";
 
-
 const columns = [
     {"key": "entity"},
     {
-        "key": "nRevs",
+        "key": "ageMonths",
         "mapper": ColumnType.integer
     }
 ];
 
 
-export const Revision = injectIntl(DataPage((props) => {
+export const Age = injectIntl(DataPage((props) => {
     const {intl} = props;
 
     return (
@@ -55,12 +55,12 @@ export const Revision = injectIntl(DataPage((props) => {
 
 
 export const fetchData = createDataRequestAction(
-    "REVISION/FETCH_ANALYSIS",
-    WebService.prepareAnalysisRequest(AnalysisMethod.revision));
+    "AGE/FETCH_ANALYSIS",
+    WebService.prepareAnalysisRequest(AnalysisMethod.age));
 
-export const sortRecords = createDataSortAction("REVISION/SORT_RECORDS");
+export const sortRecords = createDataSortAction("AGE/SORT_RECORDS");
 
-export const filterRecords = createDataFilterAction("REVISION/FILTER_RECORDS");
+export const filterRecords = createDataFilterAction("AGE/FILTER_RECORDS");
 
 
 const initialState = {
@@ -79,7 +79,7 @@ export const reducer = compose(
 
 
 export default connect(
-    (state) => state.revision,
+    (state) => state.age,
     {
         "onRequestData": () => (dispatch, getState) => {
             const { "app": { appStartDate, appEndDate }} = getState();
@@ -89,4 +89,4 @@ export default connect(
         "onSortRecords": sortRecords,
         "onChangeFilters": filterRecords
     }
-)(Revision);
+)(Age);

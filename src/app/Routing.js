@@ -8,6 +8,7 @@ import { injectIntl, defineMessages } from "react-intl";
 import Summary from "../summary";
 import Revision from "../revision";
 import Coupling from "../coupling";
+import Age from "../age";
 
 const messages = defineMessages({
     "notImplemented": {
@@ -108,7 +109,7 @@ export const routes = [
     {
         "key": "age",
         "path": "/analysis/age",
-        "component": NotImplemented
+        "component": Age
     },
     {
         "key": "absoluteChurn",

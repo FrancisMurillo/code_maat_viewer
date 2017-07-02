@@ -5,6 +5,7 @@ import { routerReducer } from "react-router-redux";
 import { reducer as summaryReducer } from "../summary";
 import { reducer as revisionReducer } from "../revision";
 import { reducer as couplingReducer } from "../coupling";
+import { reducer as ageReducer } from "../age";
 import { reducer as settingReducer } from "../setting";
 
 import middleware from "./Middleware";
@@ -21,6 +22,7 @@ const reducer = combineReducers({
     "summary": joinReducers(summaryReducer, featureReducer),
     "revision": joinReducers(revisionReducer, featureReducer),
     "coupling": joinReducers(couplingReducer, featureReducer),
+    "age": joinReducers(ageReducer, featureReducer),
     "setting": settingReducer,
     "router": routerReducer,
     "persistence": persistenceReducer

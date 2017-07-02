@@ -1,5 +1,5 @@
 import React from "react";
-import { injectIntl, defineMessages } from "react-intl";
+import { injectIntl } from "react-intl";
 
 import { compose } from "redux";
 import { handleActions } from "redux-actions";
