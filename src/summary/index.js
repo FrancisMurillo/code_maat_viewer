@@ -11,44 +11,41 @@ import { WebService, AnalysisMethod } from "../api";
 import {
     DataPage,
     DataGrid,
+    createDataRequestAction,
+    createDataSortAction,
+    createDataFilterAction,
     dataGridInitialState,
     dataRequestInitialState,
     dataRequestAction,
     dataSortAction,
+    dataFilterAction,
     handleDataRequestReducer,
     handleDataGridReducer
 } from "../shared";
 
 
-export const Summary = DataPage((props) => {
-    const {
-        data,
-        sortColumn,
-        sortDirection,
-        onSortRecords
-    } = props;
+const columns = [
+    {"key": "statistic"},
+    {"key": "value"}
+];
 
+export const Summary = DataPage((props) => {
     return (
         <DataGrid
-            data={data}
-            onSortRecords={onSortRecords}
-            sortColumn={sortColumn}
-            sortDirection={sortDirection}
+            columns={columns}
+            {...props}
         />
     );
 });
 
-export const fetchAnalysisData = createAction(
+export const fetchAnalysisData = createDataRequestAction(
     "SUMMARY/FETCH_SUMMARY_ANALYSIS",
-    WebService.prepareAnalysisRequest(AnalysisMethod.SUMMARY)
-);
+    WebService.prepareAnalysisRequest(AnalysisMethod.SUMMARY));
 
-export const sortAnalysisRecords = createAction(
-    "SUMMARY/SORT_ANALYSIS_RECORDS",
-    (column, direction) => ({
-        column,
-        direction
-    }));
+export const sortRecords = createDataSortAction("SUMMARY/SORT_RECORDS");
+
+export const filterRecords = createDataFilterAction("SUMMARY/FILTER_RECORDS");
+
 
 const initialState = {
     ...dataRequestInitialState,
@@ -60,7 +57,8 @@ export const reducer = compose(
     handleDataRequestReducer
 )(handleActions({
     [fetchAnalysisData]: (_state, _action) => dataRequestAction,
-    [sortAnalysisRecords]: (_state, _action) => dataSortAction
+    [sortRecords]: (_state, _action) => dataSortAction,
+    [filterRecords]: (_state, _action) => dataFilterAction
 }, initialState));
 
 
@@ -72,6 +70,7 @@ export default connect(
 
             dispatch(fetchAnalysisData(appStartDate, appEndDate));
         },
-        "onSortRecords": sortAnalysisRecords
+        "onSortRecords": sortRecords,
+        "onChangeFilters": filterRecords
     }
 )(Summary);

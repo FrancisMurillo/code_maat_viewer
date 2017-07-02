@@ -1,6 +1,8 @@
 import React from "react";
 import { defineMessages, injectIntl } from "react-intl";
 
+import { createAction } from "redux-actions";
+
 import CircularProgress from "material-ui/CircularProgress";
 
 const messages = defineMessages({
@@ -12,6 +14,9 @@ const messages = defineMessages({
 });
 
 export const dataRequestAction = Symbol("DATA_REQUEST/WEB_ACTION");
+
+export const createDataRequestAction = (type, requestor) =>
+    createAction(type, requestor);
 
 export const dataRequestInitialState = {
     "data": null,

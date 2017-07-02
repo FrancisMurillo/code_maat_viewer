@@ -12,6 +12,7 @@
     "prop-type": "0.0.1",
     "react": "^15.5.4",
     "react-data-grid": "^2.0.51",
+    "react-data-grid-addons": "^2.0.51",
     "react-dom": "^15.5.4",
     "react-i18next": "^4.1.0",
     "react-intl": "^2.3.0",

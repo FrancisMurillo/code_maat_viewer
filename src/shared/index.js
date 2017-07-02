@@ -1,11 +1,15 @@
 import DataPage, {
     dataRequestAction,
+    createDataRequestAction,
     dataRequestInitialState,
     handleDataRequestReducer
 } from "./DataPage";
 
 import DataGrid, {
     dataSortAction,
+    dataFilterAction,
+    createDataSortAction,
+    createDataFilterAction,
     dataGridInitialState,
     handleDataGridReducer
 } from "./DataGrid";
@@ -18,10 +22,14 @@ export {
     columnMessages,
 
     dataRequestAction,
+    createDataRequestAction,
     dataRequestInitialState,
     handleDataRequestReducer,
 
     dataSortAction,
+    dataFilterAction,
+    createDataSortAction,
+    createDataFilterAction,
     dataGridInitialState,
     handleDataGridReducer
 };

@@ -59,6 +59,7 @@
         "line-comment-position": 0,
         "dot-location": [0, "property"],
         "arrow-body-style": 0,
+        "max-statements": 0,
         "padded-blocks": 0,
         "one-var": 0,
         "sort-imports": 0,

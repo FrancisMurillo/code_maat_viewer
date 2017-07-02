@@ -1,11 +1,12 @@
 import { createAction } from "redux-actions";
 
+import { createDataRequestAction } from "../shared";
 import { WebService } from "../api";
 
 
 export const toggleSideMenu = createAction("APP/TOGGLE_SIDE_MENU");
 
-export const fetchCommits = createAction(
+export const fetchCommits = createDataRequestAction(
     "APP/FETCH_COMMITS",
     WebService.getCommits);
 
