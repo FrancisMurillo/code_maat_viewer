@@ -66,5 +66,15 @@ export default defineMessages({
         "id": "column.author",
         "description": "Column label for Author",
         "defaultMessage": "Author"
+    },
+    "authorRevs": {
+        "id": "column.authorRevisions",
+        "description": "Column label for Number of Author Revisions",
+        "defaultMessage": "Author Revisions"
+    },
+    "totalRevs": {
+        "id": "column.totalRevisions",
+        "description": "Column label for Number of Total Revisions",
+        "defaultMessage": "Total Revisions"
     }
 });

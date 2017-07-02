@@ -10,6 +10,7 @@ import { reducer as absoluteChurnReducer } from "../absoluteChurn";
 import { reducer as authorChurnReducer } from "../authorChurn";
 import { reducer as entityChurnReducer } from "../entityChurn";
 import { reducer as entityOwnershipReducer } from "../entityOwnership";
+import { reducer as entityEffortReducer } from "../entityEffort";
 import { reducer as settingReducer } from "../setting";
 
 import middleware from "./Middleware";
@@ -31,6 +32,7 @@ const reducer = combineReducers({
     "authorChurn": joinReducers(authorChurnReducer, featureReducer),
     "entityChurn": joinReducers(entityChurnReducer, featureReducer),
     "entityOwnership": joinReducers(entityOwnershipReducer, featureReducer),
+    "entityEffort": joinReducers(entityEffortReducer, featureReducer),
     "setting": settingReducer,
     "router": routerReducer,
     "persistence": persistenceReducer

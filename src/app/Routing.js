@@ -13,6 +13,7 @@ import AbsoluteChurn from "../absoluteChurn";
 import AuthorChurn from "../authorChurn";
 import EntityChurn from "../entityChurn";
 import EntityOwnership from "../entityOwnership";
+import EntityEffort from "../entityEffort";
 
 const messages = defineMessages({
     "notImplemented": {
@@ -138,7 +139,7 @@ export const routes = [
     {
         "key": "entityEffort",
         "path": "/analysis/entity-effort",
-        "component": NotImplemented
+        "component": EntityEffort
     },
 
     {
