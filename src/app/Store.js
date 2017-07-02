@@ -1,5 +1,8 @@
 import { compose, combineReducers, createStore } from "redux";
+
 import { persistStore, autoRehydrate } from "redux-persist";
+import stateManager from "redux-persist-state-manager";
+
 import { routerReducer } from "react-router-redux";
 
 import { reducer as summaryReducer } from "../summary";
@@ -38,9 +41,12 @@ const reducer = combineReducers({
     "persistence": persistenceReducer
 });
 
+const version = 1;
+
+const stateMigrations = {"1": (_state) => ({})};
+
 const store = createStore(
-    reducer,
-    undefined,
+    stateManager(reducer, {version}, stateMigrations),
     compose(middleware, autoRehydrate({"log": true})));
 
 persistStore(store, {"blacklist": ["persistence"]});

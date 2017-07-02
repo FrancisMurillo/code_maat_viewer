@@ -1,5 +1,6 @@
 import { applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
+
 import { isFSA } from "flux-standard-action";
 
 import loggerMiddleware from "redux-logger";
@@ -35,11 +36,14 @@ const optimisticPromiseMiddleware = (store) => (next) => (action) => {
     }
 };
 
-export default applyMiddleware(
+
+const composeEnhancers = composeWithDevTools({ "shouldHotReload": false });
+
+export default composeEnhancers(applyMiddleware(
     thunkFsaMiddleware,
     thunkMiddleware,
     optimisticPromiseMiddleware,
     promiseMiddleware,
     routerMiddleware(history),
     loggerMiddleware
-);
+));

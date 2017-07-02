@@ -30,6 +30,7 @@
     "redux-i18n": "^1.4.0",
     "redux-logger": "^3.0.6",
     "redux-persist": "^4.8.2",
+    "redux-persist-state-manager": "^0.1.1",
     "redux-promise": "^0.5.3",
     "redux-saga": "^0.15.4",
     "redux-thunk": "^2.2.0",
